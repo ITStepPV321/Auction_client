@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// License
+// All rights to this code, this code, and the people who wrote this code belong to Great Team Lead (Gladan Denis)
+
+import "./App.css";
+import { getToken } from "./helpers/localStorage.helper";
+import { Route, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import AuctionList from "./components/auction/AuctionList";
+import Login from "./components/accounts/Login";
+import Register from "./components/accounts/Registration";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const checkAuth = async () => {
+        const token = getToken();
+
+        try {
+            if (token) {
+                if (token == undefined || token == "") {
+                }
+            }
+        } catch (error) {}
+    };
+
+    return (
+        <div className="App">
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<AuctionList />} />
+                    <Route path="login" element={<Login />} />
+                    <Route path="registration" element={<Register />} />
+                </Route>
+            </Routes>
+        </div>
+    );
 }
 
 export default App;
