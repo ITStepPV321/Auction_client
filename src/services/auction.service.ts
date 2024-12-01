@@ -20,4 +20,10 @@ export const AuctionService = {
 
         return result;
     },
+
+    async getAllAuctions(): Promise<IAuction[]> {
+        const result = await instance.get<IAuction[]>(`auctions`);
+
+        return result.data;
+    },
 };

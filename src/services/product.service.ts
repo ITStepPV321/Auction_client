@@ -1,4 +1,5 @@
 import { instance } from "../api/axios.api";
+import { IInvoice } from "../types/invoice";
 import { IProduct } from "../types/product";
 
 export const ProductService = {
@@ -7,4 +8,6 @@ export const ProductService = {
 
         return result.data;
     },
+
+
 };

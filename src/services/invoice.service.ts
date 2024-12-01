@@ -1,5 +1,5 @@
 import { instance } from "../api/axios.api";
-import { IInvoice } from "../types/invoice";
+import { ICreateInvoice, IInvoice } from "../types/invoice";
 
 export const InvoiceService = {
     async getUserInvoice(id: number): Promise<IInvoice> {
@@ -19,5 +19,9 @@ export const InvoiceService = {
         }
 
         return result;
+    },
+
+    async post(Invoice: ICreateInvoice): Promise<void> {
+        const result = await instance.post(`Invoices`, Invoice);
     },
 };
