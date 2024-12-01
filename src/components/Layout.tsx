@@ -15,6 +15,7 @@ export default function Layout() {
                 <Link to="/login" onClick={logout}>
                     Logout
                 </Link>
+                <Link to="/profile">My Profile</Link>
             </header>
             <main>
                 <Outlet />

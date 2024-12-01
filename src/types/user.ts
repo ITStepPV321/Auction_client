@@ -9,9 +9,24 @@ export interface IRegister {
     password: string;
 }
 
-export interface IEditUser {
+export interface IChangeUsername {
+    username: string;
+}
+
+export interface IChangeEmail {
+    email: string;
+}
+
+export interface IChangePassword {
+    oldPassword: string;
+    newPassword: string;
+    repeatNewPassword: string;
+}
+
+export interface IUser {
+    id: string;
     username: string;
     email: string;
-    password: string;
-    repeatPassword: string;
+    auctionIds: number[];
+    invoiceIds: number[];
 }

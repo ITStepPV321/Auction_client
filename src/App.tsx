@@ -8,6 +8,10 @@ import Layout from "./components/Layout";
 import AuctionList from "./components/auction/AuctionList";
 import Login from "./components/accounts/Login";
 import Register from "./components/accounts/Registration";
+import Profile from "./components/accounts/Profile";
+import ChangeUsername from "./components/accounts/ChangeUsername";
+import ChangeEmail from "./components/accounts/ChangeEmail";
+import ChangePassword from "./components/accounts/ChangePassword";
 
 function App() {
     const checkAuth = async () => {
@@ -28,6 +32,10 @@ function App() {
                     <Route index element={<AuctionList />} />
                     <Route path="login" element={<Login />} />
                     <Route path="registration" element={<Register />} />
+                    <Route path="profile" element={<Profile />} />
+                    <Route path="change-username" element={<ChangeUsername />} />
+                    <Route path="change-email" element={<ChangeEmail />} />
+                    <Route path="change-password" element={<ChangePassword />} />
                 </Route>
             </Routes>
         </div>

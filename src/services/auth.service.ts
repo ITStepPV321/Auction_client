@@ -1,6 +1,6 @@
 import { instance } from "../api/axios.api";
 import { removeToken } from "../helpers/localStorage.helper";
-import { ILogin, IRegister } from "../types/user";
+import { IChangeEmail, IChangePassword, IChangeUsername, ILogin, IRegister, IUser } from "../types/user";
 
 export const AuthService = {
     async login(userData: ILogin): Promise<string | undefined> {
@@ -16,5 +16,27 @@ export const AuthService = {
 
     async logout() {
         removeToken();
+    },
+
+    async changeUsername(userData: IChangeUsername): Promise<void> {
+        await instance.post("/users/change-username", userData);
+    },
+
+    async changeEmail(userData: IChangeEmail): Promise<void> {
+        await instance.post("/users/change-email", userData);
+    },
+
+    async changePassword(userData: IChangePassword): Promise<void> {
+        await instance.post("users/change-password", userData);
+    },
+
+    async delete(): Promise<void> {
+        await instance.delete("users/delete-user");
+    },
+
+    async get(): Promise<IUser> {
+        const result = await instance.get("users/get");
+
+        return result.data;
     },
 };
