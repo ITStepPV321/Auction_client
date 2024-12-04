@@ -1,47 +1,67 @@
-import { IAuction, IAuctionUserCardProps } from "../../types/auction";
 import { useEffect, useState } from "react";
 import { AuctionService } from "../../services/auction.service";
-import { ProductService } from "../../services/product.service";
-import { IProduct } from "../../types/product";
-export default function AuctionCard(props: IAuctionUserCardProps) {
-    const [auction, setAuction] = useState<IAuction>({
-        id: 0,
-        date: new Date(),
-        productId: 0,
-        price: 0,
-    });
+import { IAuction } from "../../types/auction";
+import { Button, Card, CardActions, CardContent, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-    const [product, setProduct] = useState<IProduct>({
-        id: 0,
-        name: "",
-        description: "",
-        price: 0,
-    });
+export default function AuctionCard({ id, name, description, price, date }: IAuction) {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchAuction = async () => {
-            const result = await AuctionService.getAllAuctions();
-            setAuction(result);
-        };
+    // Функція для переходу на сторінку деталей
+    const onDetails = () => {
+        navigate(`/details/${id}`); // Перенаправлення на маршрут з id
+    };
 
-        const fetchProduct = async () => {
-            const result = await ProductService.get(props.productId);
-            setProduct(result);
-        };
+    const onDelete = async () => {
+        try {
+            setLoading(true);
+            await AuctionService.delete(id);
+            window.location.reload(); // Перезавантаження списку після видалення
+        } catch (err) {
+            setError("Failed to delete the auction.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        fetchAuction();
-        fetchProduct();
-    }, []);
+    const handleEditClick = () => {
+        navigate(`/edit/${id}`);
+    };
 
     return (
-        <div>
-            <h2>Auction</h2>
-            <p>ID: {auction.id}</p>
-            <p>Date: {auction.date.toLocaleDateString()}</p>
-            <p>Product name: {product.name}</p>
-            <p>Product description: {product.description}</p>
-            <p>Product year: {product.year}</p>
-            <p>Price: {auction.price}</p>
-        </div>
+        <Card sx={{ boxShadow: 3, padding: 2, transition: "transform 0.3s", "&:hover": { transform: "scale(1.03)" } }}>
+            <CardContent>
+                <Typography variant="h6" gutterBottom>
+                    {name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    {description}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    {date}
+                </Typography>
+                <Typography variant="body2" color="text.primary" sx={{ fontWeight: "bold" }}>
+                    {price} $
+                </Typography>
+            </CardContent>
+            <CardActions sx={{ justifyContent: "space-between" }}>
+                <Button size="small" color="primary" onClick={onDetails}>
+                    Details
+                </Button>
+                <Button size="small" color="error" onClick={onDelete} disabled={loading}>
+                    {loading ? "Deleting..." : "Delete"}
+                </Button>
+                <Button size="small" color="secondary" onClick={handleEditClick}>
+                    Edit
+                </Button>
+            </CardActions>
+            {error && (
+                <Typography color="error" sx={{ textAlign: "center", marginTop: 1 }}>
+                    {error}
+                </Typography>
+            )}
+        </Card>
     );
 }

@@ -1,7 +1,8 @@
 import axios from "axios";
 import { getToken } from "../helpers/localStorage.helper";
 
-const urlAPI = ""; // Пане Семен, введіть посилання на api, коли задеплоєте його
+const urlAPI = "https://auctionwebapi-hacgcbg3btcnawct.polandcentral-01.azurewebsites.net/api"
+// Пане Семен, введіть посилання на api, коли задеплоєте його
 
 export const instance = axios.create({
     baseURL: urlAPI,

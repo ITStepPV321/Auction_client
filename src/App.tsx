@@ -1,6 +1,3 @@
-// License
-// All rights to this code, this code, and the people who wrote this code belong to Great Team Lead (Gladan Denis)
-
 import "./App.css";
 import { getToken } from "./helpers/localStorage.helper";
 import { Route, Routes } from "react-router-dom";
@@ -13,7 +10,8 @@ import ChangeUsername from "./components/accounts/ChangeUsername";
 import ChangeEmail from "./components/accounts/ChangeEmail";
 import ChangePassword from "./components/accounts/ChangePassword";
 import InvoiceCard from "./components/auction/InvoiceCard";
-
+import CreateAuction from "./components/auction/CreateAuction";
+import DetailsPage from "./components/auction/DetailsPage";
 
 function App() {
     const checkAuth = async () => {
@@ -21,24 +19,30 @@ function App() {
 
         try {
             if (token) {
-                if (token == undefined || token == "") {
+                if (token === undefined || token === "") {
+                    // Handle invalid token case if needed
                 }
             }
-        } catch (error) {}
+        } catch (error) {
+            console.error("Authentication error:", error);
+        }
     };
 
     return (
         <div className="App">
             <Routes>
                 <Route path="/" element={<Layout />}>
+                    {/* Всі маршрути повинні бути тут, без вкладених <Routes> */}
                     <Route index element={<AuctionList />} />
+                    <Route path="create-auction" element={<CreateAuction />} />
+                    <Route path="/details/:id" element={<DetailsPage />} /> {/* Новий маршрут */}
                     <Route path="login" element={<Login />} />
                     <Route path="registration" element={<Register />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="change-username" element={<ChangeUsername />} />
                     <Route path="change-email" element={<ChangeEmail />} />
                     <Route path="change-password" element={<ChangePassword />} />
-                    <Route path="create-invoice" element={<InvoiceCard />} />
+                    {/* <Route path="create-invoice" element={<InvoiceCard />} /> */}
                 </Route>
             </Routes>
         </div>

@@ -8,6 +8,8 @@ export const ProductService = {
 
         return result.data;
     },
-
+    async delete(id:number):Promise<void>{
+        const result= await instance.delete(`products/${id}`)
+    }
 
 };

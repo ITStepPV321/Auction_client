@@ -21,18 +21,13 @@ export default function InvoiceCard(props: IAuctionUserCardProps) {
         invoiceIds: [],
     });
 
-    const [auction, setAuction] = useState<IAuction>({
-        id: 0,
-        date: new Date(),
-        productId: 0,
-        price: 0,
-    });
+    const [auction, setAuction] = useState<IAuction[]>();
 
     const [product, setProduct] = useState<IProduct>({
         id: 0,
         name: "",
         description: "",
-        price: 0,
+        year:0
     });
 
     useEffect(() => {
@@ -70,13 +65,13 @@ export default function InvoiceCard(props: IAuctionUserCardProps) {
     return (
         <div>
             <h2>Product</h2>
-            <p>ID: {auction.id}</p>
-            <p>Date: {auction.date.toLocaleDateString()}</p>
+            {/* <p>ID: {auction.id}</p> */}
+            {/* <p>Date: {auction.date.toLocaleDateString()}</p> */}
             <p>Product name: {product.name}</p>
             <p>Product description: {product.description}</p>
             <p>Product year: {product.year}</p>
-            <p>Price: {auction.price}</p>
-            <Button onclick={buyProduct} variant="contained" color="primary">
+            {/* <p>Price: {auction.price}</p> */}
+            <Button onClick={buyProduct} variant="contained" color="primary">
                 Buy
             </Button>
         </div>

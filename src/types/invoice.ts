@@ -7,5 +7,5 @@ export interface IInvoice {
 export interface ICreateInvoice {
     date: Date;
     productId: number;
-    userId: number;
+    userId: string;
 }
