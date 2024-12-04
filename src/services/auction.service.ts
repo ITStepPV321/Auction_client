@@ -3,7 +3,6 @@ import { instance } from "../api/axios.api";
 import { IAuction, ICreateAuction } from "../types/auction";
 
 export const AuctionService = {
-
     async getUserWonAuction(id: number): Promise<IAuction> {
         const result = await instance.get<IAuction>(`auctions/${id}`);
 
@@ -28,24 +27,19 @@ export const AuctionService = {
 
         return result.data;
     },
-     async create(auction: ICreateAuction): Promise<void> {
+    async create(auction: ICreateAuction): Promise<void> {
         try {
-            const response = await axios.post("https://auctionwebapi-hacgcbg3btcnawct.polandcentral-01.azurewebsites.net/api/auctions/create", auction, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
+            const response = await instance.post("auctions/create", auction);
             console.log("Response from server:", response.data);
             if (response.status !== 200) {
-                console.log("200")
+                console.log("200");
             }
-            
         } catch (error) {
             console.error("Failed to create auction:", error);
             throw error;
         }
     },
-    async delete(id:number):Promise<void>{
-        const result = await instance.delete(`auctions/${id}`)
-    }
+    async delete(id: number): Promise<void> {
+        const result = await instance.delete(`auctions/${id}`);
+    },
 };
