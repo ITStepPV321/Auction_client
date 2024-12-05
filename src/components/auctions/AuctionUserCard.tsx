@@ -3,6 +3,7 @@ import { ProductService } from "../../services/product.service";
 import { IAuctionUserCardProps } from "../../types/auction";
 import { IProduct } from "../../types/product";
 import { useNavigate } from "react-router-dom";
+import { Button, Card, CardActions, Typography } from "@mui/material";
 
 export default function AuctionUserCard({ productId }: IAuctionUserCardProps) {
     const [product, setProduct] = useState<IProduct>();
@@ -24,12 +25,14 @@ export default function AuctionUserCard({ productId }: IAuctionUserCardProps) {
     };
 
     return (
-        <div className="auction-user-card">
-            <h4>{product?.name}</h4>
+        <Card className="auction-user-card">
+            <Typography variant="h4" sx={{ marginBottom: 3, textAlign: "center" }}>
+                {product?.name}
+            </Typography>
 
-            <div className="btn-container end">
-                <button>Buy</button>
-            </div>
-        </div>
+            <CardActions className="btn-container end">
+                <Button>Buy</Button>
+            </CardActions>
+        </Card>
     );
 }

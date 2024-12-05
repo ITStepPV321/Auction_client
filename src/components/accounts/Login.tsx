@@ -3,9 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { ILogin } from "../../types/user";
 import { AuthService } from "../../services/auth.service";
 import { setToken } from "../../helpers/localStorage.helper";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Login() {
+    const { login } = useAuth();
+
     const navigate = useNavigate();
 
     const {
@@ -20,7 +23,8 @@ export default function Login() {
 
             if (token) {
                 setToken(token);
-                navigate("/auctions");
+                login(token);
+                navigate("/");
             }
         } catch (err: any) {
             const error = err.response?.data.message;
@@ -31,9 +35,12 @@ export default function Login() {
 
     return (
         <>
-            <div className="Login">
-                <h2>Login</h2>
-                <Box sx={{ width: "100%" }}>
+            <Box sx={{ padding: 4 }} className="Login">
+                <Typography variant="h4" sx={{ marginBottom: 3, textAlign: "center" }}>
+                    Login
+                </Typography>
+
+                <Box>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <TextField
                             required
@@ -56,7 +63,7 @@ export default function Login() {
                         </Button>
                     </form>
                 </Box>
-            </div>
+            </Box>
         </>
     );
 }

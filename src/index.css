@@ -17,8 +17,13 @@ code {
 }
 
 .Login form,
-.Registration form {
+.Register form,
+.ChangeEmail form,
+.ChangeUsername form,
+.ChangePassword form {
     display: flex;
     flex-direction: column;
+    max-width: 250px;
+    margin: 0 auto;
     gap: 10px;
 }

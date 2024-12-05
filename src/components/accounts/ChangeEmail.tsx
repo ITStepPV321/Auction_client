@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { IChangeEmail, IUser } from "../../types/user";
 import { AuthService } from "../../services/auth.service";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function ChangeEmail() {
@@ -42,8 +42,10 @@ export default function ChangeEmail() {
     };
 
     return (
-        <div className="ChangeEmail">
-            <h2>Changing Email</h2>
+        <Box sx={{ padding: 4 }} className="ChangeEmail">
+            <Typography variant="h4" sx={{ marginBottom: 3, textAlign: "center" }}>
+                Changing Email
+            </Typography>
             <Box sx={{ width: "100%" }}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <TextField required {...register("email")} id="email" label="email" type="email" variant="filled" />
@@ -52,6 +54,6 @@ export default function ChangeEmail() {
                     </Button>
                 </form>
             </Box>
-        </div>
+        </Box>
     );
 }

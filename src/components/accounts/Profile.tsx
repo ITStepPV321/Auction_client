@@ -8,6 +8,7 @@ import InvoiceUserCard from "../invoices/InvoiceUserCard";
 import ProfileSettings from "./ProfileSettings";
 import { IUser } from "../../types/user";
 import { AuthService } from "../../services/auth.service";
+import { Box, Grid, Typography } from "@mui/material";
 
 export default function Profile() {
     const [user, setUser] = useState<IUser | null>(null);
@@ -52,52 +53,68 @@ export default function Profile() {
     }
 
     return (
-        <div>
-            <h1>My Profile</h1>
+        <Box sx={{ padding: 4 }}>
+            <Typography variant="h4" sx={{ marginBottom: 3, textAlign: "center" }}>
+                My Profile
+            </Typography>
 
             {/* User Information */}
             {user && (
-                <div>
-                    <p>
-                        <strong>Username:</strong> {user.username}
-                    </p>
-                    <p>
-                        <strong>Email:</strong> {user.email}
-                    </p>
-                </div>
+                <Box>
+                    <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
+                        Username: {user.username}
+                    </Typography>
+                    <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
+                        Email: {user.email}
+                    </Typography>
+                </Box>
             )}
 
             {/* Auctions Section */}
-            <h3>Auctions won:</h3>
-            <div>
-                {auctions.length > 0 ? (
-                    auctions.map((auction) => (
-                        <AuctionUserCard key={auction.id} productId={auction.id} />
-                    ))
-                ) : (
-                    <p>No auctions won yet.</p>
-                )}
-            </div>
+            <Typography variant="h5" sx={{ marginBottom: 3, textAlign: "center" }}>
+                Auctions won:
+            </Typography>
+            {auctions.length > 0 ? (
+                <Grid container spacing={4}>
+                    {auctions.map((auction) => (
+                        <Grid item xs={12} sm={6} md={4} key={auction.id}>
+                            {/* <AuctionUserCard {...auction} /> */}
+                        </Grid>
+                    ))}
+                </Grid>
+            ) : (
+                <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+                    No auctions won yet.
+                </Typography>
+            )}
 
             {/* Invoices Section */}
-            <h3>Invoices:</h3>
-            <div>
-                {invoices.length > 0 ? (
-                    invoices.map((invoice) => (
-                        <InvoiceUserCard
-                            key={invoice.id}
-                            id={invoice.id}
-                            date={invoice.date}
-                            productId={invoice.productId}
-                        />
-                    ))
-                ) : (
-                    <p>No invoices available.</p>
-                )}
-            </div>
+            <Typography variant="h5" sx={{ marginBottom: 3, textAlign: "center" }}>
+                Invoices:
+            </Typography>
+            {invoices.length > 0 ? (
+                invoices.map((invoice) => (
+                    <Grid container spacing={4}>
+                        {auctions.map((auction) => (
+                            <Grid item xs={12} sm={6} md={4} key={auction.id}>
+                                <InvoiceUserCard
+                                    key={invoice.id}
+                                    id={invoice.id}
+                                    date={invoice.date}
+                                    productId={invoice.productId}
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
+                ))
+            ) : (
+                <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
+                    No invoices available.
+                </Typography>
+            )}
 
             {/* Profile Settings */}
             <ProfileSettings />
-        </div>
+        </Box>
     );
 }

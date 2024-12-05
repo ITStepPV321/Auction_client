@@ -4,14 +4,14 @@ import { IChangeEmail, IChangePassword, IChangeUsername, ILogin, IRegister, IUse
 
 export const AuthService = {
     async login(userData: ILogin): Promise<string | undefined> {
-        const result = await instance.post<string>("/login", userData);
+        const result = await instance.post<string>("users/login", userData);
         console.log(result);
 
         return result.data;
     },
 
     async register(userData: IRegister): Promise<void> {
-        await instance.post("/register", userData);
+        await instance.post("users/register", userData);
     },
 
     async logout() {

@@ -1,5 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 import { AuthService } from "../services/auth.service";
+import Header from "./ui/Header";
 
 export default function Layout() {
     const logout = () => {
@@ -9,13 +10,7 @@ export default function Layout() {
     return (
         <>
             <header>
-                <Link to="/">Auctions</Link>
-                <Link to="/login">Login</Link>
-                <Link to="/registration">Register</Link>
-                <Link to="/login" onClick={logout}>
-                    Logout
-                </Link>
-                <Link to="/profile">My Profile</Link>
+                <Header />
             </header>
             <main>
                 <Outlet />

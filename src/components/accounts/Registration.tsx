@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { IRegister } from "../../types/user";
 import { AuthService } from "../../services/auth.service";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 export default function Register() {
     const navigate = useNavigate();
@@ -27,8 +27,11 @@ export default function Register() {
 
     return (
         <>
-            <div className="Register">
-                <h2>Register</h2>
+            <Box sx={{ padding: 4 }} className="Register">
+                <Typography variant="h4" sx={{ marginBottom: 3, textAlign: "center" }}>
+                    Register
+                </Typography>
+
                 <Box>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <TextField
@@ -60,7 +63,7 @@ export default function Register() {
                         </Button>
                     </form>
                 </Box>
-            </div>
+            </Box>
         </>
     );
 }

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { AuthService } from "../../services/auth.service";
 import { removeToken } from "../../helpers/localStorage.helper";
+import { Button, Container, Stack, Typography } from "@mui/material";
 
 export default function ProfileSettings() {
     const navigate = useNavigate();
@@ -26,25 +27,37 @@ export default function ProfileSettings() {
 
     return (
         <>
-            <div className="danger-zone">
-                <h3>Danger Zone:</h3>
-                <div>
-                    <h4>Change Username</h4>
-                    <button onClick={onChangeUsername}>Change</button>
-                </div>
-                <div>
-                    <h4>Change Email</h4>
-                    <button onClick={onChangeEmail}>Change</button>
-                </div>
-                <div>
-                    <h4>Change Password</h4>
-                    <button onClick={onChangePassword}>Change</button>
-                </div>
-                <div>
-                    <h4>Delete Profile</h4>
-                    <button onClick={onDelete}>Delete</button>
-                </div>
-            </div>
+            <Container className="danger-zone">
+                <Typography variant="h5" sx={{ marginBottom: 3, textAlign: "center" }}>
+                    Danger Zone:
+                </Typography>
+                <Stack direction="column" spacing={2} sx={{ marginBottom: 2 }}>
+                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                        <Typography variant="h6">Change Username</Typography>
+                        <Button className="error" variant="contained" color="error" onClick={onChangeUsername}>
+                            Change
+                        </Button>
+                    </Stack>
+                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                        <Typography variant="h6">Change Email</Typography>
+                        <Button className="error" variant="contained" color="error" onClick={onChangeEmail}>
+                            Change
+                        </Button>
+                    </Stack>
+                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                        <Typography variant="h6">Change Password</Typography>
+                        <Button className="error" variant="contained" color="error" onClick={onChangePassword}>
+                            Change
+                        </Button>
+                    </Stack>
+                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                        <Typography variant="h6">Delete Profile</Typography>
+                        <Button className="error" variant="contained" color="error" onClick={onDelete}>
+                            Delete
+                        </Button>
+                    </Stack>
+                </Stack>
+            </Container>
         </>
     );
 }

@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { IChangeUsername, IUser } from "../../types/user";
 import { AuthService } from "../../services/auth.service";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function ChangeUsername() {
@@ -42,8 +42,10 @@ export default function ChangeUsername() {
     };
 
     return (
-        <div className="ChangeUsername">
-            <h2>Changing Username</h2>
+        <Box sx={{ padding: 4 }} className="ChangeUsername">
+            <Typography variant="h4" sx={{ marginBottom: 3, textAlign: "center" }}>
+                Changing Username
+            </Typography>
             <Box sx={{ width: "100%" }}>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <TextField
@@ -59,6 +61,6 @@ export default function ChangeUsername() {
                     </Button>
                 </form>
             </Box>
-        </div>
+        </Box>
     );
 }

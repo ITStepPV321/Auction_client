@@ -2,16 +2,17 @@ import "./App.css";
 import { getToken } from "./helpers/localStorage.helper";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/Layout";
-import AuctionList from "./components/auction/AuctionList";
+import AuctionList from "./components/auctions/AuctionList";
 import Login from "./components/accounts/Login";
 import Register from "./components/accounts/Registration";
 import Profile from "./components/accounts/Profile";
 import ChangeUsername from "./components/accounts/ChangeUsername";
 import ChangeEmail from "./components/accounts/ChangeEmail";
 import ChangePassword from "./components/accounts/ChangePassword";
-import InvoiceCard from "./components/auction/InvoiceCard";
-import CreateAuction from "./components/auction/CreateAuction";
-import DetailsPage from "./components/auction/DetailsPage";
+import InvoiceCard from "./components/auctions/InvoiceCard";
+import CreateAuction from "./components/auctions/CreateAuction";
+import DetailsPage from "./components/auctions/DetailsPage";
+import { AuthProvider } from "./contexts/AuthContext";
 
 function App() {
     const checkAuth = async () => {
@@ -29,7 +30,7 @@ function App() {
     };
 
     return (
-        <div className="App">
+        <div className="app">
             <Routes>
                 <Route path="/" element={<Layout />}>
                     {/* Всі маршрути повинні бути тут, без вкладених <Routes> */}

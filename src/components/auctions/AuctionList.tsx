@@ -27,11 +27,15 @@ export default function AuctionList() {
     }, []);
 
     if (loading) {
-        return <Typography>Loading auctions...</Typography>;
+        return <Typography sx={{ padding: 4 }}>Loading auctions...</Typography>;
     }
 
     if (error) {
-        return <Typography color="error">{error}</Typography>;
+        return (
+            <Typography sx={{ padding: 4 }} color="error">
+                {error}
+            </Typography>
+        );
     }
 
     return (
