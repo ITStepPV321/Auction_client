@@ -1,6 +1,6 @@
 import axios from "axios";
 import { instance } from "../api/axios.api";
-import { IAuction, ICreateAuction } from "../types/auction";
+import { IAuction, ICreateAuction, IUpdateAuction } from "../types/auction";
 
 export const AuctionService = {
     async getUserWonAuction(id: number): Promise<IAuction> {
@@ -42,4 +42,14 @@ export const AuctionService = {
     async delete(id: number): Promise<void> {
         const result = await instance.delete(`auctions/${id}`);
     },
+    async update(id: number, auction: IUpdateAuction): Promise<void> {
+        console.log("Sending PUT request to update auction:", auction);
+        const result = await instance.put(`auctions/${id}`, auction);
+    
+        if (!result.status || result.status >= 400) {
+            throw new Error("Failed to update auction.");
+        }
+    }
+    
+    
 };

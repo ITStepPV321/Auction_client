@@ -15,3 +15,10 @@ export interface ICreateAuction {
     description: string;
     price: number;
 }
+export interface IUpdateAuction{
+    id: number;
+    date: string;
+    name:string;
+    description:string;
+    price: number;
+}
