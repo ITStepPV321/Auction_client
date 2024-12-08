@@ -51,10 +51,10 @@ export default function ChangePassword() {
                     />
                     <TextField
                         required
-                        {...register("repeatNewPassword")}
-                        id="repeatNewPassword"
-                        label="repeatNewPassword"
-                        type="repeatNewPassword"
+                        {...register("repeatPassword")}
+                        id="repeatPassword"
+                        label="repeatPassword"
+                        type="repeatPassword"
                         variant="filled"
                     />
                     <Button variant="contained" type="submit">

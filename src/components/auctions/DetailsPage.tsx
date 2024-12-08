@@ -3,6 +3,10 @@ import { useParams } from "react-router-dom";
 import { AuctionService } from "../../services/auction.service";
 import { IAuction } from "../../types/auction";
 import { Box, Typography, CircularProgress, TextField, Button } from "@mui/material";
+import Timer from "./Timer";
+import { BetHistoryService } from "../../services/betHistory.service";
+import { ICreateBet } from "../../types/betHistory";
+import { format } from "date-fns";
 
 export default function DetailsPage() {
     const { id } = useParams<{ id: string }>(); // Отримання id з маршруту
@@ -26,44 +30,53 @@ export default function DetailsPage() {
                 setLoading(false);
             }
         };
-    
+
         fetchAuction();
     }, [id]);
-    
 
     const handleBet = async () => {
+        const maxBet = await BetHistoryService.getMaxBet(auction ? auction.id : 0);
+
         console.log("Bet button clicked!"); // Лог для перевірки
         if (!auction) return;
-    
-        const currentPrice = auction.price;
-        console.log(currentPrice)
-        console.log(betAmount)
 
-    //typeof betAmount === "string" ||
-        if ( Number(betAmount) <= currentPrice) {
+        const currentPrice = maxBet.bet ? maxBet.bet : auction.price;
+        console.log(currentPrice);
+        console.log(betAmount);
+
+        //typeof betAmount === "string" ||
+        if (Number(betAmount) <= currentPrice) {
             setBetError(`Bet amount must be greater than ${currentPrice} $`);
             return;
         }
-    
+
         try {
             console.log("Updating auction with bet amount:", betAmount); // Лог для дебагу
-            const updatedAuction = {
-                ...auction,
-                price: Number(betAmount), // Оновлюємо ставку
+
+            const bet: ICreateBet = {
+                bet: Number(betAmount),
+                userId: "string",
+                auctionId: auction?.id,
+                date: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS"),
             };
-    
-            await AuctionService.update(auction.id, updatedAuction);
-    
-            setAuction(updatedAuction);
+            // const updatedAuction = {
+            //     ...auction,
+            //     price: Number(betAmount), // Оновлюємо ставку
+            // };
+
+            await BetHistoryService.makeBet(bet);
+
+            //await AuctionService.update(auction.id, updatedAuction);
+
+            //setAuction(updatedAuction);
             setBetError(null);
             setBetAmount("");
-            window.location.reload();
+            //window.location.reload();
         } catch (err) {
             console.error("Error while placing the bet:", err);
             setBetError("Failed to place the bet. Please try again.");
         }
     };
-    
 
     if (loading) {
         return <CircularProgress />;
@@ -74,38 +87,44 @@ export default function DetailsPage() {
     }
 
     return (
-        <Box sx={{ padding: 4 }}>
-            <Typography variant="h4">{auction?.name}</Typography>
-            <Typography variant="body1" sx={{ marginBottom: 2 }}>
-                {auction?.description}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-                Date: {auction?.date}
-            </Typography>
-            <Typography variant="body2" color="text.primary">
-                Price: {auction?.price} $
-            </Typography>
-
-            <Box sx={{ display: "flex", alignItems: "center", marginTop: 4 }}>
-                {/* Поле для введення суми */}
-                <TextField
-                    label="Bet Amount"
-                    variant="outlined"
-                    type="number"
-                    value={betAmount}
-                    onChange={(e) => setBetAmount(e.target.value)}
-                    sx={{ marginRight: 2 }}
-                />
-                <Button variant="contained" color="primary" onClick={handleBet}>
-                    Bet
-                </Button>
+        <Box sx={{ display: "flex", padding: 4 }}>
+            <Box>
+                <Typography variant="h4">{auction?.name}</Typography>
+                <Typography variant="body1" sx={{ marginBottom: 2 }}>
+                    {auction?.description}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    Date: {auction?.date}
+                </Typography>
+                <Typography variant="body2" color="text.primary">
+                    Price: {auction?.price} $
+                </Typography>
             </Box>
 
-            {betError && (
-                <Typography color="error" sx={{ marginTop: 2 }}>
-                    {betError}
-                </Typography>
-            )}
+            <Box sx={{ paddingLeft: 4 }}>
+                <Timer auctionId={auction ? auction.id : 0} date={auction ? auction.date : ""} />
+
+                <Box sx={{ display: "flex", alignItems: "center", marginTop: 4 }}>
+                    {/* Поле для введення суми */}
+                    <TextField
+                        label="Bet Amount"
+                        variant="outlined"
+                        type="number"
+                        value={betAmount}
+                        onChange={(e) => setBetAmount(e.target.value)}
+                        sx={{ marginRight: 2 }}
+                    />
+                    <Button variant="contained" color="primary" onClick={handleBet}>
+                        Bet
+                    </Button>
+                </Box>
+
+                {betError && (
+                    <Typography color="error" sx={{ marginTop: 2 }}>
+                        {betError}
+                    </Typography>
+                )}
+            </Box>
         </Box>
     );
 }

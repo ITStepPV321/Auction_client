@@ -35,9 +35,9 @@ export default function ChangeUsername() {
         } catch (err: any) {
             const error = err.response?.data.message;
 
-            setValue("username", user.username);
+            setValue("userName", user.userName);
 
-            alert(error);
+            alert(err);
         }
     };
 
@@ -50,10 +50,10 @@ export default function ChangeUsername() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <TextField
                         required
-                        {...register("username")}
-                        id="username"
-                        label="username"
-                        type="username"
+                        {...register("userName")}
+                        id="userName"
+                        label="userName"
+                        type="userName"
                         variant="filled"
                     />
                     <Button variant="contained" type="submit">

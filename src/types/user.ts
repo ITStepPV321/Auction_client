@@ -10,22 +10,25 @@ export interface IRegister {
 }
 
 export interface IChangeUsername {
-    username: string;
+    id: string;
+    userName: string;
 }
 
 export interface IChangeEmail {
+    id: string;
     email: string;
 }
 
 export interface IChangePassword {
+    id: string;
     oldPassword: string;
     newPassword: string;
-    repeatNewPassword: string;
+    repeatPassword: string;
 }
 
 export interface IUser {
     id: string;
-    username: string;
+    userName: string;
     email: string;
     auctionIds: number[];
     invoiceIds: number[];

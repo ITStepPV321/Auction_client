@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, ReactNode } from "react";
 import { getToken } from "../helpers/localStorage.helper";
 import { AuthService } from "../services/auth.service";
-import { AuthContextType, AuthProviderProps } from "../types/authContext";
+import { AuthContextType, AuthProviderProps } from "../types/auth";
 
 // Створення контексту з початковим значенням
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);

@@ -10,12 +10,11 @@ import { AuthService } from "../../services/auth.service";
 import { useNavigate } from "react-router-dom";
 
 export default function InvoiceCard(props: IAuctionUserCardProps) {
-
     const navigate = useNavigate();
 
     const [user, setUser] = useState<IUser>({
         id: "",
-        username: "",
+        userName: "",
         email: "",
         auctionIds: [],
         invoiceIds: [],
@@ -27,11 +26,10 @@ export default function InvoiceCard(props: IAuctionUserCardProps) {
         id: 0,
         name: "",
         description: "",
-        year:0
+        year: 0,
     });
 
     useEffect(() => {
-
         const fetchUser = async () => {
             const result = await AuthService.get();
             setUser(result);
@@ -46,7 +44,7 @@ export default function InvoiceCard(props: IAuctionUserCardProps) {
             const result = await ProductService.get(props.productId);
             setProduct(result);
         };
-        
+
         fetchUser();
         fetchAuction();
         fetchProduct();
@@ -56,7 +54,7 @@ export default function InvoiceCard(props: IAuctionUserCardProps) {
         const invoice = {
             date: new Date(),
             productId: product.id,
-            userId: user.id, 
+            userId: user.id,
         };
         await InvoiceService.post(invoice);
         navigate("/profile");

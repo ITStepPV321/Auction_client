@@ -2,8 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { AuthService } from "../../services/auth.service";
 import { removeToken } from "../../helpers/localStorage.helper";
 import { Button, Container, Stack, Typography } from "@mui/material";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function ProfileSettings() {
+    const { logout } = useAuth();
     const navigate = useNavigate();
 
     const onChangeUsername = () => {
@@ -18,8 +20,10 @@ export default function ProfileSettings() {
         navigate("/change-password");
     };
 
-    const onDelete = () => {
-        AuthService.delete();
+    const onDelete = async () => {
+        await AuthService.delete();
+
+        logout();
         removeToken();
 
         navigate("/login");

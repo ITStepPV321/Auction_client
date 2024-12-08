@@ -1,8 +1,7 @@
 import axios from "axios";
 import { getToken } from "../helpers/localStorage.helper";
 
-const urlAPI = "https://auctionclient2-cnguh0f5hzhfetey.polandcentral-01.azurewebsites.net/api"
-//"https://localhost:7017/api"
+const urlAPI = "https://localhost:7017/api"; //https://auctionclient2-cnguh0f5hzhfetey.polandcentral-01.azurewebsites.net/api";
 //"https://auctionwebapi-hacgcbg3btcnawct.polandcentral-01.azurewebsites.net/api"
 // Пане Семен, введіть посилання на api, коли задеплоєте його
 

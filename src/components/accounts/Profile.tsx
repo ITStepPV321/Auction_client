@@ -62,7 +62,7 @@ export default function Profile() {
             {user && (
                 <Box>
                     <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
-                        Username: {user.username}
+                        Username: {user.userName}
                     </Typography>
                     <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
                         Email: {user.email}
@@ -95,16 +95,12 @@ export default function Profile() {
             {invoices.length > 0 ? (
                 invoices.map((invoice) => (
                     <Grid container spacing={4}>
-                        {auctions.map((auction) => (
-                            <Grid item xs={12} sm={6} md={4} key={auction.id}>
-                                <InvoiceUserCard
-                                    key={invoice.id}
-                                    id={invoice.id}
-                                    date={invoice.date}
-                                    productId={invoice.productId}
-                                />
-                            </Grid>
-                        ))}
+                        <InvoiceUserCard
+                            key={invoice.id}
+                            id={invoice.id}
+                            date={invoice.date}
+                            productId={invoice.productId}
+                        />
                     </Grid>
                 ))
             ) : (

@@ -102,3 +102,53 @@ main {
     min-width: 600px;
     background-color: #ba000c10;
 }
+
+.timer {
+    height: 150px;
+}
+
+.timer .circle {
+    display: flex;
+    width: 150px;
+    height: 150px;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer .circle svg {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    transform: rotate(270deg);
+}
+
+.timer .circle svg circle {
+    width: 100%;
+    height: 100%;
+    fill: transparent;
+    stroke-width: 8;
+    stroke: #cfcfcf;
+    transform: translate(5px, 5px);
+}
+
+.timer .circle svg circle:nth-child(2) {
+    stroke: #007bff;
+    stroke-dasharray: 440;
+    transition: all 1s linear 0s;
+}
+
+.timer div.info {
+    position: absolute;
+    text-align: center;
+    font-weight: 500;
+    color: #333;
+}
+
+.timer div.info div.bet {
+    font-size: 28px;
+}
+
+.timer div.info div.userName {
+    font-size: 16px;
+}

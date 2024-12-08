@@ -19,19 +19,27 @@ export const AuthService = {
     },
 
     async changeUsername(userData: IChangeUsername): Promise<void> {
-        await instance.post("/users/change-username", userData);
+        userData.id = "string";
+
+        await instance.put("users/change-username", userData);
     },
 
     async changeEmail(userData: IChangeEmail): Promise<void> {
-        await instance.post("/users/change-email", userData);
+        userData.id = "string";
+
+        await instance.put("users/change-email", userData);
     },
 
     async changePassword(userData: IChangePassword): Promise<void> {
-        await instance.post("users/change-password", userData);
+        userData.id = "string";
+
+        await instance.put("users/change-password", userData);
     },
 
     async delete(): Promise<void> {
-        await instance.delete("users/delete-user");
+        const result = await instance.delete("users/delete-user");
+
+        console.log(result.data);
     },
 
     async get(): Promise<IUser> {
