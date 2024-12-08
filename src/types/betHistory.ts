@@ -14,6 +14,7 @@ export interface ICreateBet {
 }
 
 export interface IMaxBet {
+    id: number;
     bet: number;
     userName: string;
     date: string;

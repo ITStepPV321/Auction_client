@@ -3,11 +3,14 @@ export interface IAuction {
     date: string;
     name: string;
     description: string;
+    year: number;
+    startedPrice: number;
     price: number;
+    sellerId: number;
 }
 
 export interface IAuctionUserCardProps {
-    productId: number;
+    auctionId: number;
 }
 export interface ICreateAuction {
     date: string;

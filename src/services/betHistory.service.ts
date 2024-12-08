@@ -1,9 +1,15 @@
 import { instance } from "../api/axios.api";
-import { ICreateBet, IMaxBet } from "../types/betHistory";
+import { IBetHistory, ICreateBet, IMaxBet } from "../types/betHistory";
 
 export const BetHistoryService = {
     async getMaxBet(auctionId: number): Promise<IMaxBet> {
         const result = await instance.get<IMaxBet>(`bethistories/get-max-bet/${auctionId}`);
+
+        return result.data;
+    },
+
+    async getBetHistory(betHistoryId: number): Promise<IBetHistory> {
+        const result = await instance.get<IBetHistory>(`bethistories/get/${betHistoryId}`);
 
         return result.data;
     },

@@ -22,6 +22,12 @@ export const AuctionService = {
         return result;
     },
 
+    async getAuction(id: number): Promise<IAuction> {
+        const result = await instance.get<IAuction>(`auctions/${id}`);
+
+        return result.data;
+    },
+
     async getAllAuctions(): Promise<IAuction[]> {
         const result = await instance.get<IAuction[]>(`auctions`);
 

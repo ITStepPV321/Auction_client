@@ -1,11 +1,11 @@
 export interface IInvoice {
     id: number;
-    date: Date;
-    productId: number;
+    date: string;
+    betHistoryId: number;
 }
 
 export interface ICreateInvoice {
-    date: Date;
-    productId: number;
+    date: string;
+    betHistoryId: number;
     userId: string;
 }

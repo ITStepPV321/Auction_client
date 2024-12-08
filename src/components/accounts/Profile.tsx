@@ -78,7 +78,7 @@ export default function Profile() {
                 <Grid container spacing={4}>
                     {auctions.map((auction) => (
                         <Grid item xs={12} sm={6} md={4} key={auction.id}>
-                            {/* <AuctionUserCard {...auction} /> */}
+                            <AuctionUserCard {...auction} />
                         </Grid>
                     ))}
                 </Grid>

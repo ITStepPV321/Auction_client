@@ -8,6 +8,9 @@ import { InvoiceService } from "../../services/invoice.service";
 import { IUser } from "../../types/user";
 import { AuthService } from "../../services/auth.service";
 import { useNavigate } from "react-router-dom";
+import { BetHistoryService } from "../../services/betHistory.service";
+import { IBetHistory } from "../../types/betHistory";
+import { format } from "date-fns";
 
 export default function InvoiceCard(props: IAuctionUserCardProps) {
     const navigate = useNavigate();
@@ -20,14 +23,9 @@ export default function InvoiceCard(props: IAuctionUserCardProps) {
         invoiceIds: [],
     });
 
-    const [auction, setAuction] = useState<IAuction[]>();
+    const [auction, setAuction] = useState<IAuction>();
 
-    const [product, setProduct] = useState<IProduct>({
-        id: 0,
-        name: "",
-        description: "",
-        year: 0,
-    });
+    const [betHistory, setBetHistory] = useState<IBetHistory>();
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -36,24 +34,25 @@ export default function InvoiceCard(props: IAuctionUserCardProps) {
         };
 
         const fetchAuction = async () => {
-            const result = await AuctionService.getAllAuctions();
+            const result = await AuctionService.getAuction(props.auctionId);
             setAuction(result);
         };
-
-        const fetchProduct = async () => {
-            const result = await ProductService.get(props.productId);
-            setProduct(result);
+        const fetcBetHistory = async () => {
+            const result = await BetHistoryService.getMaxBet(auction!.id);
+            const betHistoryId = result.id;
+            const result2 = await BetHistoryService.getBetHistory(betHistoryId);
+            setBetHistory(result2);
         };
 
         fetchUser();
         fetchAuction();
-        fetchProduct();
+        fetcBetHistory();
     }, []);
 
     const buyProduct = async () => {
         const invoice = {
-            date: new Date(),
-            productId: product.id,
+            date: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS"),
+            betHistoryId: betHistory!.id,
             userId: user.id,
         };
         await InvoiceService.post(invoice);
@@ -63,12 +62,12 @@ export default function InvoiceCard(props: IAuctionUserCardProps) {
     return (
         <div>
             <h2>Product</h2>
-            {/* <p>ID: {auction.id}</p> */}
-            {/* <p>Date: {auction.date.toLocaleDateString()}</p> */}
-            <p>Product name: {product.name}</p>
-            <p>Product description: {product.description}</p>
-            <p>Product year: {product.year}</p>
-            {/* <p>Price: {auction.price}</p> */}
+            <p>ID: {auction?.id}</p>
+            <p>Date: {new Date (auction!.date).toLocaleDateString()}</p>
+            <p>Product name: {auction?.name}</p>
+            <p>Product description: {auction?.description}</p>
+            <p>Product year: {auction?.year}</p>
+            <p>Price: {betHistory?.bet}</p>
             <Button onClick={buyProduct} variant="contained" color="primary">
                 Buy
             </Button>
