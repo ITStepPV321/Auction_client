@@ -14,6 +14,12 @@ export const BetHistoryService = {
         return result.data;
     },
 
+    async getUserWonBets(): Promise<IBetHistory[]> {
+        const result = await instance.get<IBetHistory[]>("bethistories/get-user-won-bets/");
+
+        return result.data;
+    },
+
     async makeBet(betData: ICreateBet): Promise<void> {
         const result = await instance.post("bethistories/create-bet", betData);
 

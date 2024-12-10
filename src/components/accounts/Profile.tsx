@@ -9,6 +9,8 @@ import ProfileSettings from "./ProfileSettings";
 import { IUser } from "../../types/user";
 import { AuthService } from "../../services/auth.service";
 import { Box, Grid, Typography } from "@mui/material";
+import { BetHistoryService } from "../../services/betHistory.service";
+import { IBetHistory } from "../../types/betHistory";
 
 export default function Profile() {
     const [user, setUser] = useState<IUser | null>(null);
@@ -25,12 +27,14 @@ export default function Profile() {
                 setUser(fetchedUser);
 
                 if (fetchedUser) {
+                    // Fetch user's won bets
+                    const wonBets: IBetHistory[] = await BetHistoryService.getUserWonBets();
                     // Fetch user's won auctions
-                    const auctionArr = await AuctionService.getUserWonAuctions(fetchedUser.auctionIds || []);
+                    const auctionArr = await AuctionService.getUserWonAuctions(wonBets);
                     setAuctions(auctionArr);
 
                     // Fetch user's invoices
-                    const invoiceArr = await InvoiceService.getUserInvoices(fetchedUser.invoiceIds || []);
+                    const invoiceArr = await InvoiceService.getUserInvoices(wonBets);
                     setInvoices(invoiceArr);
                 }
             } catch (err) {
@@ -45,11 +49,15 @@ export default function Profile() {
     }, []);
 
     if (loading) {
-        return <p>Loading...</p>;
+        return <Typography sx={{ padding: 4 }}>Loading...</Typography>;
     }
 
     if (error) {
-        return <p style={{ color: "red" }}>{error}</p>;
+        return (
+            <Typography sx={{ padding: 4 }} style={{ color: "red" }}>
+                {error}
+            </Typography>
+        );
     }
 
     return (
@@ -99,7 +107,7 @@ export default function Profile() {
                             key={invoice.id}
                             id={invoice.id}
                             date={invoice.date}
-                            productId={invoice.productId}
+                            betHistoryId={invoice.betHistoryId}
                         />
                     </Grid>
                 ))

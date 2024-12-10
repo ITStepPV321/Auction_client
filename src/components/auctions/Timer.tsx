@@ -5,6 +5,7 @@ import { BetHistoryService } from "../../services/betHistory.service";
 
 export default function Timer({ auctionId, date }: ITimerProps) {
     const [maxBet, setMaxBet] = useState<IMaxBet>({
+        id: 0,
         bet: 0,
         userName: "Nobody",
         date: new Date("01/01/2020").toISOString(),

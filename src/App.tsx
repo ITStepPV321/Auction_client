@@ -9,10 +9,9 @@ import Profile from "./components/accounts/Profile";
 import ChangeUsername from "./components/accounts/ChangeUsername";
 import ChangeEmail from "./components/accounts/ChangeEmail";
 import ChangePassword from "./components/accounts/ChangePassword";
-import InvoiceCard from "./components/auctions/InvoiceCard";
 import CreateAuction from "./components/auctions/CreateAuction";
 import DetailsPage from "./components/auctions/DetailsPage";
-import { AuthProvider } from "./contexts/AuthContext";
+import CreateInvoiceCard from "./components/auctions/CreateInvoiceCard";
 
 function App() {
     const checkAuth = async () => {
@@ -43,7 +42,7 @@ function App() {
                     <Route path="change-username" element={<ChangeUsername />} />
                     <Route path="change-email" element={<ChangeEmail />} />
                     <Route path="change-password" element={<ChangePassword />} />
-                    {/* <Route path="create-invoice" element={<InvoiceCard />} /> */}
+                    <Route path="create-invoice/:auctionId" element={<CreateInvoiceCard />} />
                 </Route>
             </Routes>
         </div>

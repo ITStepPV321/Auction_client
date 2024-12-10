@@ -1,18 +1,17 @@
 import { IAuction, IAuctionUserCardProps } from "../../types/auction";
 import { useEffect, useState } from "react";
 import { AuctionService } from "../../services/auction.service";
-import { ProductService } from "../../services/product.service";
-import { IProduct } from "../../types/product";
 import { Button } from "@mui/material";
 import { InvoiceService } from "../../services/invoice.service";
 import { IUser } from "../../types/user";
 import { AuthService } from "../../services/auth.service";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BetHistoryService } from "../../services/betHistory.service";
 import { IBetHistory } from "../../types/betHistory";
 import { format } from "date-fns";
 
-export default function InvoiceCard(props: IAuctionUserCardProps) {
+export default function CreateInvoiceCard() {
+    const { auctionId } = useParams();
     const navigate = useNavigate();
 
     const [user, setUser] = useState<IUser>({
@@ -34,7 +33,7 @@ export default function InvoiceCard(props: IAuctionUserCardProps) {
         };
 
         const fetchAuction = async () => {
-            const result = await AuctionService.getAuction(props.auctionId);
+            const result = await AuctionService.getAuction(parseInt(auctionId!));
             setAuction(result);
         };
         const fetcBetHistory = async () => {
@@ -63,7 +62,7 @@ export default function InvoiceCard(props: IAuctionUserCardProps) {
         <div>
             <h2>Product</h2>
             <p>ID: {auction?.id}</p>
-            <p>Date: {new Date (auction!.date).toLocaleDateString()}</p>
+            <p>Date: {new Date(auction!.date).toLocaleDateString()}</p>
             <p>Product name: {auction?.name}</p>
             <p>Product description: {auction?.description}</p>
             <p>Product year: {auction?.year}</p>

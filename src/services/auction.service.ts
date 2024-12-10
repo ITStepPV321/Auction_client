@@ -1,6 +1,7 @@
 import axios from "axios";
 import { instance } from "../api/axios.api";
 import { IAuction, ICreateAuction, IUpdateAuction } from "../types/auction";
+import { IBetHistory } from "../types/betHistory";
 
 export const AuctionService = {
     async getUserWonAuction(id: number): Promise<IAuction> {
@@ -9,11 +10,11 @@ export const AuctionService = {
         return result.data;
     },
 
-    async getUserWonAuctions(ids: number[]): Promise<IAuction[]> {
+    async getUserWonAuctions(wonBets: IBetHistory[]): Promise<IAuction[]> {
         const result = [];
 
-        for (let i = 0; i < ids.length; i++) {
-            const id = ids[i];
+        for (let i = 0; i < wonBets.length; i++) {
+            const id = wonBets[i].auctionId;
             const auction = await this.getUserWonAuction(id);
 
             result.push(auction);
@@ -51,11 +52,9 @@ export const AuctionService = {
     async update(id: number, auction: IUpdateAuction): Promise<void> {
         console.log("Sending PUT request to update auction:", auction);
         const result = await instance.put(`auctions/${id}`, auction);
-    
+
         if (!result.status || result.status >= 400) {
             throw new Error("Failed to update auction.");
         }
-    }
-    
-    
+    },
 };

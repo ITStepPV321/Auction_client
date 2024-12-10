@@ -1,4 +1,5 @@
 import { instance } from "../api/axios.api";
+import { IBetHistory } from "../types/betHistory";
 import { ICreateInvoice, IInvoice } from "../types/invoice";
 
 export const InvoiceService = {
@@ -8,17 +9,25 @@ export const InvoiceService = {
         return result.data;
     },
 
-    async getUserInvoices(ids: number[]): Promise<IInvoice[]> {
+    async getUserInvoices(wonBets: IBetHistory[]): Promise<IInvoice[]> {
         const result = [];
 
-        for (let i = 0; i < ids.length; i++) {
-            const id = ids[i];
-            const invoice = await this.getUserInvoice(id);
+        for (let i = 0; i < wonBets.length; i++) {
+            const id = wonBets[i].id;
+            const invoice = await this.getUserInvoiceByWonBet(id);
 
-            result.push(invoice);
+            if (invoice) {
+                result.push(invoice);
+            }
         }
 
         return result;
+    },
+
+    async getUserInvoiceByWonBet(betId: number): Promise<IInvoice> {
+        const result = await instance.get<IInvoice>(`invoices/get-by-bethistory/${betId}`);
+
+        return result.data;
     },
 
     async post(Invoice: ICreateInvoice): Promise<void> {

@@ -6,13 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { Button, Card, CardActions, Typography } from "@mui/material";
 
 export default function AuctionUserCard({ id, date, name, description, price }: IAuction) {
-
     const navigate = useNavigate();
 
-
-
     const buyProduct = async () => {
-        navigate(`/create-invoice`);
+        navigate(`/create-invoice/${id}`);
     };
 
     return (
@@ -31,7 +28,7 @@ export default function AuctionUserCard({ id, date, name, description, price }: 
             </Typography>
 
             <CardActions className="btn-container end">
-                <Button>Buy</Button>
+                <Button onClick={buyProduct}>Buy</Button>
             </CardActions>
         </Card>
     );

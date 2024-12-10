@@ -19,15 +19,13 @@ export default function InvoiceUserCard({ id, date, betHistoryId }: IInvoice) {
 
             setBetHistory(result);
         };
-        const fetchAuction = async () => {            
+        const fetchAuction = async () => {
             const result = await AuctionService.getAuction(betHistory!.auctionId);
             setAuctions(result);
         };
         fetchBetHistory();
         fetchAuction();
     }, []);
-
-
 
     return (
         <div className="invoice-user-card">
