@@ -31,6 +31,6 @@ export const InvoiceService = {
     },
 
     async post(Invoice: ICreateInvoice): Promise<void> {
-        const result = await instance.post(`Invoices`, Invoice);
+        const result = await instance.post(`invoices`, Invoice);
     },
 };

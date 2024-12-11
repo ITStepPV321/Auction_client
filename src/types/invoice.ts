@@ -7,5 +7,4 @@ export interface IInvoice {
 export interface ICreateInvoice {
     date: string;
     betHistoryId: number;
-    userId: string;
 }

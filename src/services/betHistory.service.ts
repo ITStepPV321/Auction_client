@@ -8,6 +8,11 @@ export const BetHistoryService = {
         return result.data;
     },
 
+    async getFullMaxBet(auctionId: number): Promise<IBetHistory> {
+        const result = await instance.get<IBetHistory>(`bethistories/get-full-max-bet/${auctionId}`);
+        return result.data;
+    },
+
     async getBetHistory(betHistoryId: number): Promise<IBetHistory> {
         const result = await instance.get<IBetHistory>(`bethistories/get/${betHistoryId}`);
 

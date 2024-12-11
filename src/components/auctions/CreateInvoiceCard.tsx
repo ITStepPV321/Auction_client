@@ -22,7 +22,16 @@ export default function CreateInvoiceCard() {
         invoiceIds: [],
     });
 
-    const [auction, setAuction] = useState<IAuction>();
+    const [auction, setAuction] = useState<IAuction>({
+        id: parseInt(auctionId!),
+        date: "string",
+        name: "string",
+        description: "string",
+        year: 0,
+        startedPrice: 0,
+        price: 0,
+        sellerId: 0,
+    });
 
     const [betHistory, setBetHistory] = useState<IBetHistory>();
 
@@ -37,7 +46,7 @@ export default function CreateInvoiceCard() {
             setAuction(result);
         };
         const fetcBetHistory = async () => {
-            const result = await BetHistoryService.getMaxBet(auction!.id);
+            const result = await BetHistoryService.getFullMaxBet(auction.id);
             const betHistoryId = result.id;
             const result2 = await BetHistoryService.getBetHistory(betHistoryId);
             setBetHistory(result2);
@@ -52,8 +61,8 @@ export default function CreateInvoiceCard() {
         const invoice = {
             date: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS"),
             betHistoryId: betHistory!.id,
-            userId: user.id,
         };
+        console.log(invoice);
         await InvoiceService.post(invoice);
         navigate("/profile");
     };
