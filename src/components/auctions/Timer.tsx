@@ -10,7 +10,7 @@ export default function Timer({ auctionId, date }: ITimerProps) {
         userName: "Nobody",
         date: new Date("01/01/2020").toISOString(),
     });
-    const [newDate, setNewDate] = useState(new Date(date).getTime());
+    const [newDate, setNewDate] = useState(new Date(date).getUTCDate());
     const [endDate, setEndDate] = useState(newDate + 30000);
     const [seconds, setSeconds] = useState<number>(30); // Початкові секунди
     const [secsStyle, setSecsStyle] = useState({});
@@ -24,8 +24,8 @@ export default function Timer({ auctionId, date }: ITimerProps) {
                 const now = Date.now();
                 const updatedDistance = endDate - now;
 
-                console.log(now.toLocaleString());
-                console.log(endDate.toLocaleString());
+                console.log(new Date(now));
+                console.log(new Date(endDate));
 
                 if (updatedDistance <= 0) {
                     clearInterval(intervalId);
