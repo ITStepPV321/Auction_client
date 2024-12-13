@@ -101,11 +101,13 @@ export default function Profile() {
                 Invoices:
             </Typography>
             {invoices.length > 0 ? (
-                invoices.map((invoice) => (
-                    <Grid container spacing={4} key={invoice.id}>
-                        <InvoiceUserCard id={invoice.id} date={invoice.date} betHistoryId={invoice.betHistoryId} />
-                    </Grid>
-                ))
+                <Grid container spacing={4}>
+                    {invoices.map((invoice) => (
+                        <Grid item xs={12} sm={6} md={4} key={invoice.id}>
+                            <InvoiceUserCard id={invoice.id} date={invoice.date} betHistoryId={invoice.betHistoryId} />
+                        </Grid>
+                    ))}
+                </Grid>
             ) : (
                 <Typography variant="subtitle1" sx={{ textAlign: "center" }}>
                     No invoices available.

@@ -4,30 +4,57 @@ import { IBetHistory } from "../../types/betHistory";
 import { BetHistoryService } from "../../services/betHistory.service";
 import { IAuction } from "../../types/auction";
 import { AuctionService } from "../../services/auction.service";
+import { Button, Card, CardActions, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function InvoiceUserCard({ id, date, betHistoryId }: IInvoice) {
+    const navigate = useNavigate();
+
+    const [betHistory, setBetHistory] = useState<IBetHistory>();
     const [auction, setAuction] = useState<IAuction>();
 
-    useEffect(() => {
-        const fetchBetHistory = async () => {
-            const fetchedBetHistory = await BetHistoryService.getBetHistory(betHistoryId);
-            const fetchedAuction = await AuctionService.getAuction(fetchedBetHistory.auctionId);
+    const fetchBetHistory = async () => {
+        const fetchedBetHistory = await BetHistoryService.getBetHistory(betHistoryId);
+        const fetchedAuction = await AuctionService.getAuction(fetchedBetHistory.auctionId);
 
-            setAuction(fetchedAuction);
-        };
+        setBetHistory(fetchedBetHistory);
+        setAuction(fetchedAuction);
+    };
+
+    useEffect(() => {
         fetchBetHistory();
     }, []);
 
+    const DetailsOnClick = () => {
+        navigate("invoice-card");
+    };
+
+    const DeleteOnClick = () => {
+        fetchBetHistory();
+    };
+
     return (
-        <div className="invoice-user-card">
-            <h4>{auction?.name}</h4>
-            <h4>{auction?.date}</h4>
-            <h4>{auction?.description}</h4>
-            <h4>{auction?.price}</h4>
-            <div className="btn-container end">
-                <button>Details</button>
-                <button>Delete</button>
-            </div>
-        </div>
+        <Card className="invoice-user-card">
+            <Typography variant="h5" sx={{ marginBottom: 3, textAlign: "center" }}>
+                {auction?.name}
+            </Typography>
+            <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
+                {auction?.date}
+            </Typography>
+            <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
+                {auction?.description}
+            </Typography>
+            <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
+                ${betHistory?.bet}
+            </Typography>
+            <CardActions className="btn-container end">
+                <Button size="small" color="primary" onClick={DetailsOnClick}>
+                    Details
+                </Button>
+                <Button size="small" color="error" className="error" onClick={DeleteOnClick}>
+                    Delete
+                </Button>
+            </CardActions>
+        </Card>
     );
 }
