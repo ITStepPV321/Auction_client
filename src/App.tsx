@@ -12,6 +12,7 @@ import ChangePassword from "./components/accounts/ChangePassword";
 import CreateAuction from "./components/auctions/CreateAuction";
 import DetailsPage from "./components/auctions/DetailsPage";
 import CreateInvoiceCard from "./components/auctions/CreateInvoiceCard";
+import InvoiceCard from "./components/invoices/InvoiceCard";
 
 function App() {
     const checkAuth = async () => {
@@ -43,6 +44,7 @@ function App() {
                     <Route path="change-email" element={<ChangeEmail />} />
                     <Route path="change-password" element={<ChangePassword />} />
                     <Route path="create-invoice/:auctionId" element={<CreateInvoiceCard />} />
+                    <Route path="invoice/:id" element={<InvoiceCard />} />
                 </Route>
             </Routes>
         </div>

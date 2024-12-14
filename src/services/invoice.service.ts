@@ -1,3 +1,4 @@
+import { promises } from "dns";
 import { instance } from "../api/axios.api";
 import { IBetHistory } from "../types/betHistory";
 import { ICreateInvoice, IInvoice } from "../types/invoice";
@@ -26,6 +27,12 @@ export const InvoiceService = {
 
     async getUserInvoiceByWonBet(betId: number): Promise<IInvoice> {
         const result = await instance.get<IInvoice>(`invoices/get-by-bethistory/${betId}`);
+
+        return result.data;
+    },
+
+    async get(id:number): Promise <IInvoice> {
+        const result = await instance.get(`invoices/get/${id}`);
 
         return result.data;
     },
