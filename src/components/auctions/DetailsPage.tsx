@@ -57,7 +57,7 @@ export default function DetailsPage() {
                 bet: Number(betAmount),
                 userId: "string",
                 auctionId: auction?.id,
-                date: format(new Date(new Date().getUTCDate()), "yyyy-MM-dd'T'HH:mm:ss.SSS"),
+                date: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS"),
             };
             // const updatedAuction = {
             //     ...auction,
