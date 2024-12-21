@@ -218,6 +218,13 @@ main {
     align-self: center;
 }
 
+.lbl {
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
 .invoice-id-lbl {
     margin: 0;
     padding: 0;
@@ -321,4 +328,28 @@ main {
 .company-social {
     width: 24px;
     height: 24px;
+}
+
+.invoice-product-cont {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 350px;
+    background-color: white;
+    box-shadow: 15px 15px 30px gray;
+}
+
+.invoice-product-name {
+    text-align: start;
+}
+
+.invoice-product-buy-cont {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invoice-product-price {
+    font-size: 28px;
 }

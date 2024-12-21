@@ -1,7 +1,7 @@
 import { IAuction, IAuctionUserCardProps } from "../../types/auction";
 import { useEffect, useState } from "react";
 import { AuctionService } from "../../services/auction.service";
-import { Button } from "@mui/material";
+import { Box, Button, Card, Typography } from "@mui/material";
 import { InvoiceService } from "../../services/invoice.service";
 import { IUser } from "../../types/user";
 import { AuthService } from "../../services/auth.service";
@@ -68,17 +68,34 @@ export default function CreateInvoiceCard() {
     };
 
     return (
-        <div>
-            <h2>Product</h2>
-            <p>ID: {auction?.id}</p>
-            <p>Date: {new Date(auction!.date).toLocaleDateString()}</p>
-            <p>Product name: {auction?.name}</p>
-            <p>Product description: {auction?.description}</p>
-            <p>Product year: {auction?.year}</p>
-            <p>Price: {betHistory?.bet}</p>
-            <Button onClick={buyProduct} variant="contained" color="primary">
-                Buy
-            </Button>
-        </div>
+        <Box className="invoice-product-cont" sx={{ padding: 4 }}>
+            <Box className="invoice-product-info">
+                <h1 className="invoice-product-name">{auction?.name}</h1>
+                <p className="invoice-more-info">More info</p>
+
+                <div className="invoice-product-desc-cont">
+                    <p className="invoice-product-desc lbl">Product description:</p>
+                    <p className="invoice-product-desc">{auction?.description}</p>
+                </div>
+
+                <div className="invoice-product-date-cont">
+                    <p className="invoice-product-date lbl">Date:</p>
+                    <p className="invoice-product-date">{new Date(auction!.date).toLocaleDateString()}</p>
+                </div>
+
+                <div className="invoice-product-year-cont">
+                    <p className="invoice-product-year lbl">Product year:</p>
+                    <p className="invoice-product-year">{auction?.year}</p>
+                </div>
+            </Box>
+
+            <Box className="invoice-product-buy-cont">
+                <Button onClick={buyProduct} variant="contained" color="primary">
+                    Buy
+                </Button>
+
+                <p className="invoice-product-price lbl">${betHistory?.bet}</p>
+            </Box>
+        </Box>
     );
 }

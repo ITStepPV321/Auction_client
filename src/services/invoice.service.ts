@@ -31,7 +31,7 @@ export const InvoiceService = {
         return result.data;
     },
 
-    async get(id:number): Promise <IInvoice> {
+    async get(id: number): Promise<IInvoice> {
         const result = await instance.get(`invoices/get/${id}`);
 
         return result.data;
@@ -39,5 +39,9 @@ export const InvoiceService = {
 
     async post(Invoice: ICreateInvoice): Promise<void> {
         const result = await instance.post(`invoices`, Invoice);
+    },
+
+    async delete(Id: Number): Promise<void> {
+        const result = await instance.delete(`invoices/delete/${Id}`);
     },
 };

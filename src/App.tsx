@@ -11,7 +11,7 @@ import ChangeEmail from "./components/accounts/ChangeEmail";
 import ChangePassword from "./components/accounts/ChangePassword";
 import CreateAuction from "./components/auctions/CreateAuction";
 import DetailsPage from "./components/auctions/DetailsPage";
-import CreateInvoiceCard from "./components/auctions/CreateInvoiceCard";
+import CreateInvoiceCard from "./components/invoices/CreateInvoiceCard";
 import InvoiceCard from "./components/invoices/InvoiceCard";
 
 function App() {
