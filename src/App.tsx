@@ -44,7 +44,7 @@ function App() {
                     <Route path="change-email" element={<ChangeEmail />} />
                     <Route path="change-password" element={<ChangePassword />} />
                     <Route path="create-invoice/:auctionId" element={<CreateInvoiceCard />} />
-                    <Route path="invoice/:id" element={<InvoiceCard />} />
+                    <Route path="/invoice/:id" element={<InvoiceCard />} />
                 </Route>
             </Routes>
         </div>

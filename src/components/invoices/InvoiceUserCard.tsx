@@ -7,7 +7,7 @@ import { AuctionService } from "../../services/auction.service";
 import { Button, Card, CardActions, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-export default function InvoiceUserCard({ id, date, betHistoryId }: IInvoice) {
+export default function InvoiceUserCard({ id, betHistoryId }: IInvoice) {
     const navigate = useNavigate();
 
     const [betHistory, setBetHistory] = useState<IBetHistory>();
@@ -26,7 +26,7 @@ export default function InvoiceUserCard({ id, date, betHistoryId }: IInvoice) {
     }, []);
 
     const DetailsOnClick = () => {
-        navigate("invoice-card");
+        navigate(`/invoice/${id}`);
     };
 
     const DeleteOnClick = () => {

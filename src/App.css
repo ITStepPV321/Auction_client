@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+
 body {
     margin: 0;
     padding: 0;
@@ -152,4 +154,171 @@ main {
 
 .timer div.info div.userName {
     font-size: 16px;
+}
+
+.invoice-btn-container {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.button-img {
+    width: 32px;
+    margin-right: 10px;
+}
+
+.invoice-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding-top: 1px;
+    justify-self: center;
+    background-color: white;
+    width: 600px;
+    height: 848px;
+    box-shadow: 15px 15px 30px gray;
+}
+
+.invoice-header {
+    margin-top: 40px;
+}
+
+.invoice-header-item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.invoice-ttl-cont {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 300px;
+    height: 90px;
+    background-color: #007bff;
+    align-items: center;
+}
+
+.flex {
+    display: flex;
+}
+
+.invoice-ttl {
+    margin: 0;
+    margin-right: 30px;
+    font-size: 48px;
+    text-transform: uppercase;
+    color: white;
+}
+
+.invoice-id-cont {
+    display: flex;
+    align-self: center;
+}
+
+.invoice-id-info {
+    margin-right: 40px;
+    align-self: center;
+}
+
+.invoice-id-lbl {
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.invoice-id {
+    margin: 0;
+    padding: 0;
+    text-align: end;
+}
+
+.invoice-cube {
+    width: 45px;
+    height: 45px;
+    background-color: #007bff;
+    align-self: center;
+}
+
+.invoice-company-name {
+    margin-left: 50px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.invoice-divider {
+    width: 100px;
+    height: 2px;
+    background-color: #007bff;
+}
+
+.invoice-divider-full {
+    margin: 20px 0;
+    width: 100%;
+    height: 2px;
+    background-color: #007bff;
+}
+
+.invoice-billing-ttl {
+    margin-bottom: 5px;
+    margin-left: 50px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.invoice-user-info {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 50px;
+    font-size: 14px;
+}
+
+.invoice-body {
+    margin: 40px;
+}
+
+.terms-conditions-cont {
+    display: flex;
+}
+
+.terms-conditions-info {
+    margin-left: 30px;
+}
+
+.terms-conditions-ttl {
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.terms-conditions-text {
+    width: 400px;
+    font-size: 11px;
+}
+
+.invoice-footer {
+    display: flex;
+    margin-top: auto;
+    margin-bottom: 0;
+    background-color: #007bff;
+    color: white;
+}
+
+.invoice-footer > p {
+    margin-left: 10px;
+}
+
+.invoice-company-socials {
+    display: flex;
+    width: 140px;
+    margin-left: 20px;
+    margin-right: 20px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.company-social {
+    width: 24px;
+    height: 24px;
 }
