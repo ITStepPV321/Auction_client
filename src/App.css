@@ -353,3 +353,102 @@ main {
 .invoice-product-price {
     font-size: 28px;
 }
+
+.auction-container {
+    display: flex;
+    min-width: 800px;
+    width: 50%;
+    margin: 90px;
+    padding: 30px;
+    background-color: white;
+    justify-self: center;
+    justify-content: space-between;
+    box-shadow: 10px 10px 20px lightgray;
+}
+
+.auction-desc {
+    font-weight: 600;
+}
+
+.auction-ttl {
+    margin: 5px 0px;
+    text-align: start;
+    font-weight: 600;
+}
+
+.auction-id {
+    text-transform: uppercase;
+    color: gray;
+}
+
+.auction-start-date {
+    font-weight: 600;
+}
+
+.auction-divider {
+    width: 100%;
+    height: 2px;
+    background-color: #007bff;
+}
+
+.make-bet-btn {
+    width: 100px;
+    height: 56px;
+}
+
+.start {
+    margin-top: 20px;
+}
+
+.end {
+    margin-bottom: 20px;
+}
+
+.icon {
+    width: 32px;
+    height: 32px;
+}
+
+.countdown-ttl {
+    font-weight: 600;
+}
+
+.countdown-container {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.tick-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.tick-info {
+    display: table;
+    width: 32px;
+    height: 28px;
+    align-self: center;
+    text-align: center;
+    background-color: #007bff;
+    color: white;
+}
+
+.tick-lbl {
+    display: table-cell;
+    text-align: center;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.tick-ttl {
+    margin-top: 10px;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
+
+.ttl {
+    font-weight: 600;
+}

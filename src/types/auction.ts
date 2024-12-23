@@ -30,3 +30,7 @@ export interface ITimerProps {
     auctionId: number;
     date: string;
 }
+
+export interface ICountDownProps {
+    date: string;
+}

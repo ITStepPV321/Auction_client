@@ -50,11 +50,8 @@ export default function AuctionCard({ id, name, description, price, date }: IAuc
                 <Button size="small" color="primary" onClick={onDetails}>
                     Details
                 </Button>
-                <Button size="small" color="error" onClick={onDelete} disabled={loading}>
+                <Button className="error" size="small" color="error" onClick={onDelete} disabled={loading}>
                     {loading ? "Deleting..." : "Delete"}
-                </Button>
-                <Button size="small" color="secondary" onClick={handleEditClick}>
-                    Edit
                 </Button>
             </CardActions>
             {error && (

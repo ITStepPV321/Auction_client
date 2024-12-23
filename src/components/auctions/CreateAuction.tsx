@@ -19,11 +19,12 @@ export default function CreateAuction() {
         try {
             const formattedAuction = {
                 ...auction,
+                date: new Date(auction.date).toISOString(),
                 //price: Number(auction.price),
             };
-    
+
             console.log("Formatted Auction:", formattedAuction);
-    
+
             await AuctionService.create(formattedAuction);
             navigate("/");
         } catch (error: any) {
@@ -31,10 +32,7 @@ export default function CreateAuction() {
             alert("An error occurred while creating the auction.");
         }
     };
-    
-    
-    
-    
+
     return (
         <Box
             sx={{
@@ -49,10 +47,7 @@ export default function CreateAuction() {
             <Typography variant="h4" sx={{ marginBottom: 2, textAlign: "center" }}>
                 Create New Auction
             </Typography>
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                style={{ width: "100%", maxWidth: "400px" }}
-            >
+            <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", maxWidth: "400px" }}>
                 {/* Date Field */}
                 <TextField
                     {...register("date", { required: "Date is required" })}
@@ -60,7 +55,7 @@ export default function CreateAuction() {
                     helperText={errors.date?.message}
                     id="date"
                     label="Date"
-                    type="date"
+                    type="datetime-local"
                     variant="outlined"
                     fullWidth
                     sx={{ marginBottom: 2 }}
@@ -113,12 +108,7 @@ export default function CreateAuction() {
                 />
 
                 {/* Submit Button */}
-                <Button
-                    variant="contained"
-                    type="submit"
-                    fullWidth
-                    disabled={isSubmitting}
-                >
+                <Button variant="contained" type="submit" fullWidth disabled={isSubmitting}>
                     {isSubmitting ? "Creating..." : "Create"}
                 </Button>
             </form>

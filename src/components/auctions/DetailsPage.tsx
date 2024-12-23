@@ -3,26 +3,37 @@ import { useParams } from "react-router-dom";
 import { AuctionService } from "../../services/auction.service";
 import { IAuction } from "../../types/auction";
 import { Box, Typography, CircularProgress, TextField, Button } from "@mui/material";
-import Timer from "./Timer";
+import Timer from "./Timers/Timer";
 import { BetHistoryService } from "../../services/betHistory.service";
 import { ICreateBet } from "../../types/betHistory";
-import { format } from "date-fns";
+import Countdown from "./Timers/Countdown";
 
 export default function DetailsPage() {
     const { id } = useParams<{ id: string }>(); // Отримання id з маршруту
     const [auction, setAuction] = useState<IAuction | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [betAmount, setBetAmount] = useState<number | string>(""); // Поле для введення суми
+    const [betAmount, setBetAmount] = useState<number | string>("");
+    const [recBetAmount, setRecBetAmount] = useState<number | string>("");
     const [betError, setBetError] = useState<string | null>(null); // Помилка для перевірки суми
+    const [timerType, setTimerType] = useState(-1);
 
     useEffect(() => {
         const fetchAuction = async () => {
             try {
                 setLoading(true);
                 const fetchedAuction = await AuctionService.getUserWonAuction(Number(id));
-                console.log("Fetched auction:", fetchedAuction); // Лог
                 setAuction(fetchedAuction);
+
+                const maxBet = await BetHistoryService.getMaxBet(fetchedAuction.id);
+
+                if (!isNaN(maxBet.bet)) {
+                    setBetAmount(maxBet.bet);
+                    setRecBetAmount(maxBet.bet + 50);
+                } else {
+                    setBetAmount(fetchedAuction.price);
+                    setRecBetAmount(fetchedAuction.price);
+                }
             } catch (err) {
                 console.error("Error fetching auction:", err);
                 setError("Failed to load auction details.");
@@ -34,6 +45,30 @@ export default function DetailsPage() {
         fetchAuction();
     }, [id]);
 
+    useEffect(() => {
+        const intervalId = setInterval(async () => {
+            if (auction != null) {
+                const maxBet = await BetHistoryService.getMaxBet(auction.id);
+                let auctionTime = new Date(auction!.date).getTime();
+                const currentTime = new Date().getTime();
+
+                if (!isNaN(maxBet.bet)) {
+                    auctionTime = new Date(maxBet.date).getTime();
+                }
+
+                if (auctionTime > currentTime) {
+                    setTimerType(0);
+                } else if (auctionTime > currentTime - 30000) {
+                    setTimerType(1);
+                } else {
+                    setTimerType(-1);
+                }
+            }
+        }, 300);
+
+        return () => clearInterval(intervalId);
+    }, [auction]);
+
     const handleBet = async () => {
         const maxBet = await BetHistoryService.getMaxBet(auction ? auction.id : 0);
 
@@ -41,37 +76,27 @@ export default function DetailsPage() {
         if (!auction) return;
 
         const currentPrice = maxBet.bet ? maxBet.bet : auction.price;
-        console.log(currentPrice);
-        console.log(betAmount);
 
-        //typeof betAmount === "string" ||
-        if (Number(betAmount) <= currentPrice) {
+        if (Number(recBetAmount) <= currentPrice) {
             setBetError(`Bet amount must be greater than ${currentPrice} $`);
             return;
         }
 
         try {
-            console.log("Updating auction with bet amount:", betAmount); // Лог для дебагу
+            console.log("Updating auction with bet amount:", recBetAmount); // Лог для дебагу
 
             const bet: ICreateBet = {
-                bet: Number(betAmount),
+                bet: Number(recBetAmount),
                 userId: "string",
                 auctionId: auction?.id,
-                date: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS"),
+                date: new Date().toISOString(),
             };
-            // const updatedAuction = {
-            //     ...auction,
-            //     price: Number(betAmount), // Оновлюємо ставку
-            // };
 
             await BetHistoryService.makeBet(bet);
+            setBetAmount(bet.bet);
+            setRecBetAmount(bet.bet + 50);
 
-            //await AuctionService.update(auction.id, updatedAuction);
-
-            //setAuction(updatedAuction);
             setBetError(null);
-            setBetAmount("");
-            //window.location.reload();
         } catch (err) {
             console.error("Error while placing the bet:", err);
             setBetError("Failed to place the bet. Please try again.");
@@ -87,37 +112,46 @@ export default function DetailsPage() {
     }
 
     return (
-        <Box sx={{ display: "flex", padding: 4 }}>
+        <Box className="auction-container">
             <Box>
-                <Typography variant="h4">{auction?.name}</Typography>
-                <Typography variant="body1" sx={{ marginBottom: 2 }}>
-                    {auction?.description}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                    Date: {auction?.date}
-                </Typography>
-                <Typography variant="body2" color="text.primary">
-                    Price: {auction?.price} $
-                </Typography>
+                <p className="auction-desc">{auction?.description}</p>
             </Box>
 
             <Box sx={{ paddingLeft: 4 }}>
-                <Timer auctionId={auction ? auction.id : 0} date={auction ? auction.date : ""} />
+                <h1 className="auction-ttl">{auction?.name}</h1>
+                <p className="auction-id">Auction Id: {auction?.id}</p>
+                <p className="auction-start-date">Auction Start Date: {new Date(auction!.date).toLocaleString()}</p>
 
-                <Box sx={{ display: "flex", alignItems: "center", marginTop: 4 }}>
-                    {/* Поле для введення суми */}
-                    <TextField
-                        label="Bet Amount"
-                        variant="outlined"
-                        type="number"
-                        value={betAmount}
-                        onChange={(e) => setBetAmount(e.target.value)}
-                        sx={{ marginRight: 2 }}
-                    />
-                    <Button variant="contained" color="primary" onClick={handleBet}>
-                        Bet
-                    </Button>
-                </Box>
+                {timerType == 0 ? (
+                    <Countdown date={auction ? auction.date : ""} />
+                ) : timerType == 1 ? (
+                    <Timer auctionId={auction ? auction.id : 0} date={auction ? auction.date : ""} />
+                ) : (
+                    <p>Auction Ended</p>
+                )}
+
+                <div className="auction-divider start"></div>
+
+                <p className="started-price ttl">Started Price: ${auction?.price}</p>
+                <p className="current-price ttl">Current Price: ${betAmount}</p>
+
+                <div className="auction-divider end"></div>
+
+                {timerType == 1 ? (
+                    <Box sx={{ display: "flex", alignItems: "center", marginTop: 4 }}>
+                        <TextField
+                            label="Bet Amount"
+                            variant="outlined"
+                            type="number"
+                            value={recBetAmount}
+                            onChange={(e) => setRecBetAmount(e.target.value)}
+                            sx={{ marginRight: 2 }}
+                        />
+                        <Button className="make-bet-btn" variant="contained" color="primary" onClick={handleBet}>
+                            Bet
+                        </Button>
+                    </Box>
+                ) : null}
 
                 {betError && (
                     <Typography color="error" sx={{ marginTop: 2 }}>

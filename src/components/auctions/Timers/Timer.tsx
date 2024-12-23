@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { ITimerProps } from "../../types/auction";
-import { IMaxBet } from "../../types/betHistory";
-import { BetHistoryService } from "../../services/betHistory.service";
+import { ITimerProps } from "../../../types/auction";
+import { IMaxBet } from "../../../types/betHistory";
+import { BetHistoryService } from "../../../services/betHistory.service";
 
 export default function Timer({ auctionId, date }: ITimerProps) {
     const [maxBet, setMaxBet] = useState<IMaxBet>({
@@ -10,7 +10,7 @@ export default function Timer({ auctionId, date }: ITimerProps) {
         userName: "Nobody",
         date: new Date("01/01/2020").toISOString(),
     });
-    const [newDate, setNewDate] = useState(new Date(date).getUTCDate());
+    const [newDate, setNewDate] = useState(new Date(date).getTime());
     const [endDate, setEndDate] = useState(newDate + 30000);
     const [seconds, setSeconds] = useState<number>(30); // Початкові секунди
     const [secsStyle, setSecsStyle] = useState({});
