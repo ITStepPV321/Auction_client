@@ -4,7 +4,7 @@ import { IBetHistory } from "../../types/betHistory";
 import { BetHistoryService } from "../../services/betHistory.service";
 import { IAuction } from "../../types/auction";
 import { AuctionService } from "../../services/auction.service";
-import { Button, Card, CardActions, Typography } from "@mui/material";
+import { Box, Button, Card, CardActions, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { InvoiceService } from "../../services/invoice.service";
 
@@ -36,27 +36,39 @@ export default function InvoiceUserCard({ id, betHistoryId }: IInvoice) {
     };
 
     return (
-        <Card className="invoice-user-card">
-            <Typography variant="h5" sx={{ marginBottom: 3, textAlign: "center" }}>
-                {auction?.name}
-            </Typography>
-            <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
-                {auction?.date}
-            </Typography>
-            <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
-                {auction?.description}
-            </Typography>
-            <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
-                ${betHistory?.bet}
-            </Typography>
-            <CardActions className="btn-container end">
-                <Button size="small" color="primary" onClick={DetailsOnClick}>
+        <Box className="auction-user-cont" sx={{ padding: 4 }}>
+            <Box className="invoice-product-info">
+                <h1 className="invoice-product-name">{auction?.name}</h1>
+                <p className="invoice-more-info">More info</p>
+
+                <div className="invoice-product-desc-cont">
+                    <p className="invoice-product-desc lbl">Product description:</p>
+                    <p className="invoice-product-desc">{auction?.description}</p>
+                </div>
+
+                <div className="invoice-product-date-cont">
+                    <p className="invoice-product-date lbl">Date:</p>
+                    <p className="invoice-product-date">{auction ? new Date(auction.date).toLocaleString() : null}</p>
+                </div>
+
+                <div className="invoice-product-year-cont">
+                    <p className="invoice-product-year lbl">Product year:</p>
+                    <p className="invoice-product-year">{auction?.year}</p>
+                </div>
+
+                <div className="invoice-product-price-cont">
+                    <p className="invoice-product-price lbl">Price: ${betHistory?.bet}</p>
+                </div>
+            </Box>
+
+            <Box className="invoice-product-actions-cont">
+                <Button variant="contained" color="primary" onClick={DetailsOnClick}>
                     Details
                 </Button>
-                <Button size="small" color="error" className="error" onClick={DeleteOnClick}>
+                <Button variant="contained" color="error" className="error" onClick={DeleteOnClick}>
                     Delete
                 </Button>
-            </CardActions>
-        </Card>
+            </Box>
+        </Box>
     );
 }

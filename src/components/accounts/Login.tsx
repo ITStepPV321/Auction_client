@@ -34,36 +34,36 @@ export default function Login() {
     };
 
     return (
-        <>
-            <Box sx={{ padding: 4 }} className="Login">
-                <Typography variant="h4" sx={{ marginBottom: 3, textAlign: "center" }}>
-                    Login
-                </Typography>
+        <Box className="form">
+            <Typography variant="h4" sx={{ marginBottom: 3, textAlign: "center" }}>
+                Login
+            </Typography>
 
-                <Box>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <TextField
-                            required
-                            {...register("email")}
-                            id="email"
-                            label="email"
-                            type="email"
-                            variant="filled"
-                        />
-                        <TextField
-                            required
-                            {...register("password")}
-                            id="password"
-                            label="password"
-                            type="password"
-                            variant="filled"
-                        />
-                        <Button variant="contained" type="submit">
-                            Login
-                        </Button>
-                    </form>
-                </Box>
-            </Box>
-        </>
+            <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", maxWidth: "400px" }}>
+                <TextField
+                    required
+                    {...register("email")}
+                    id="email"
+                    label="email"
+                    type="email"
+                    variant="filled"
+                    fullWidth
+                    sx={{ marginBottom: 2 }}
+                />
+                <TextField
+                    required
+                    {...register("password")}
+                    id="password"
+                    label="password"
+                    type="password"
+                    variant="filled"
+                    fullWidth
+                    sx={{ marginBottom: 2 }}
+                />
+                <Button variant="contained" type="submit" fullWidth>
+                    Login
+                </Button>
+            </form>
+        </Box>
     );
 }

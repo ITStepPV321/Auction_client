@@ -26,10 +26,6 @@ export default function AuctionCard({ id, name, description, price, date }: IAuc
         }
     };
 
-    const handleEditClick = () => {
-        navigate(`/edit/${id}`);
-    };
-
     return (
         <Card sx={{ boxShadow: 3, padding: 2, transition: "transform 0.3s", "&:hover": { transform: "scale(1.03)" } }}>
             <CardContent>
@@ -40,7 +36,7 @@ export default function AuctionCard({ id, name, description, price, date }: IAuc
                     {description}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                    {date}
+                    {new Date(date).toLocaleString()}
                 </Typography>
                 <Typography variant="body2" color="text.primary" sx={{ fontWeight: "bold" }}>
                     {price} $

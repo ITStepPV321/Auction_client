@@ -32,30 +32,38 @@ export default function ProfileSettings() {
     return (
         <>
             <Container className="danger-zone">
-                <Typography variant="h5" sx={{ marginBottom: 3, textAlign: "center" }}>
+                <Typography className="danger-zone-ttl" variant="h5" sx={{ marginBottom: 3, textAlign: "center" }}>
                     Danger Zone:
                 </Typography>
                 <Stack direction="column" spacing={2} sx={{ marginBottom: 2 }}>
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                        <Typography variant="h6">Change Username</Typography>
+                        <Typography className="danger-zone-lbl" variant="h6">
+                            Change Username
+                        </Typography>
                         <Button className="error" variant="contained" color="error" onClick={onChangeUsername}>
                             Change
                         </Button>
                     </Stack>
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                        <Typography variant="h6">Change Email</Typography>
+                        <Typography className="danger-zone-lbl" variant="h6">
+                            Change Email
+                        </Typography>
                         <Button className="error" variant="contained" color="error" onClick={onChangeEmail}>
                             Change
                         </Button>
                     </Stack>
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                        <Typography variant="h6">Change Password</Typography>
+                        <Typography className="danger-zone-lbl" variant="h6">
+                            Change Password
+                        </Typography>
                         <Button className="error" variant="contained" color="error" onClick={onChangePassword}>
                             Change
                         </Button>
                     </Stack>
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
-                        <Typography variant="h6">Delete Profile</Typography>
+                        <Typography className="danger-zone-lbl" variant="h6">
+                            Delete Profile
+                        </Typography>
                         <Button className="error" variant="contained" color="error" onClick={onDelete}>
                             Delete
                         </Button>

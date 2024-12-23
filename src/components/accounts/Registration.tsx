@@ -27,42 +27,46 @@ export default function Register() {
 
     return (
         <>
-            <Box sx={{ padding: 4 }} className="Register">
+            <Box className="form">
                 <Typography variant="h4" sx={{ marginBottom: 3, textAlign: "center" }}>
                     Register
                 </Typography>
 
-                <Box>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <TextField
-                            required
-                            {...register("username")}
-                            id="username"
-                            label="username"
-                            type="username"
-                            variant="filled"
-                        />
-                        <TextField
-                            required
-                            {...register("email")}
-                            id="email"
-                            label="email"
-                            type="email"
-                            variant="filled"
-                        />
-                        <TextField
-                            required
-                            {...register("password")}
-                            id="password"
-                            label="password"
-                            type="password"
-                            variant="filled"
-                        />
-                        <Button variant="contained" type="submit">
-                            Register
-                        </Button>
-                    </form>
-                </Box>
+                <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", maxWidth: "400px" }}>
+                    <TextField
+                        required
+                        {...register("username")}
+                        id="username"
+                        label="username"
+                        type="username"
+                        variant="filled"
+                        fullWidth
+                        sx={{ marginBottom: 2 }}
+                    />
+                    <TextField
+                        required
+                        {...register("email")}
+                        id="email"
+                        label="email"
+                        type="email"
+                        variant="filled"
+                        fullWidth
+                        sx={{ marginBottom: 2 }}
+                    />
+                    <TextField
+                        required
+                        {...register("password")}
+                        id="password"
+                        label="password"
+                        type="password"
+                        variant="filled"
+                        fullWidth
+                        sx={{ marginBottom: 2 }}
+                    />
+                    <Button variant="contained" type="submit" fullWidth>
+                        Register
+                    </Button>
+                </form>
             </Box>
         </>
     );

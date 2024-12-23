@@ -1,11 +1,11 @@
-import { IAuction } from "../../types/auction";
+import { IAuctionUserCardProps } from "../../types/auction";
 import { useNavigate } from "react-router-dom";
-import { Button, Card, CardActions, Typography } from "@mui/material";
+import { Box, Button, Card, CardActions, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { BetHistoryService } from "../../services/betHistory.service";
 import { IMaxBet } from "../../types/betHistory";
 
-export default function AuctionUserCard({ id, date, name, description, price }: IAuction) {
+export default function AuctionUserCard({ id, date, name, description, year, price, canBuy }: IAuctionUserCardProps) {
     const navigate = useNavigate();
     const [betHistory, setBetHistory] = useState<IMaxBet>();
 
@@ -24,25 +24,41 @@ export default function AuctionUserCard({ id, date, name, description, price }: 
     }, []);
 
     return (
-        <Card className="auction-user-card">
-            <Typography variant="h5" sx={{ marginBottom: 3, textAlign: "center" }}>
-                {name}
-            </Typography>
-            <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
-                {date}
-            </Typography>
-            <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
-                {description}
-            </Typography>
-            <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
-                ${betHistory?.bet}
-            </Typography>
+        <Box className="auction-user-cont" sx={{ padding: 4 }}>
+            <Box className="invoice-product-info">
+                <h1 className="invoice-product-name">{name}</h1>
+                <p className="invoice-more-info">More info</p>
 
-            <CardActions className="btn-container end">
-                <Button size="small" color="primary" onClick={buyProduct}>
-                    Buy
-                </Button>
-            </CardActions>
-        </Card>
+                <div className="invoice-product-desc-cont">
+                    <p className="invoice-product-desc lbl">Product description:</p>
+                    <p className="invoice-product-desc">{description}</p>
+                </div>
+
+                <div className="invoice-product-date-cont">
+                    <p className="invoice-product-date lbl">Date:</p>
+                    <p className="invoice-product-date">{new Date(date).toLocaleString()}</p>
+                </div>
+
+                <div className="invoice-product-year-cont">
+                    <p className="invoice-product-year lbl">Product year:</p>
+                    <p className="invoice-product-year">{year}</p>
+                </div>
+            </Box>
+
+            <Box className="invoice-product-buy-cont">
+                <p className="invoice-product-price lbl">${betHistory?.bet}</p>
+
+                {canBuy ? (
+                    <Button
+                        className="invoice-product-buy-cont"
+                        variant="contained"
+                        color="primary"
+                        onClick={buyProduct}
+                    >
+                        Buy
+                    </Button>
+                ) : null}
+            </Box>
+        </Box>
     );
 }

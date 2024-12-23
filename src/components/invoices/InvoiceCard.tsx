@@ -96,11 +96,15 @@ export default function InvoiceCard() {
                 <Box className="invoice-divider-full"></Box>
 
                 <Box className="invoice-body">
-                    <Typography variant="subtitle1">Date: {invoice?.date || "Loading..."}</Typography>
+                    <Typography variant="subtitle1">
+                        Date: {invoice ? new Date(invoice.date).toLocaleString() : "Loading..."}
+                    </Typography>
+                    <Typography variant="subtitle1">
+                        Auction Date: {auction ? new Date(auction.date).toLocaleString() : "Loading..."}
+                    </Typography>
                     <Typography variant="subtitle1">Bet: ${betHistory?.bet}</Typography>
                     <Typography variant="subtitle1">Name: {auction?.name}</Typography>
                     <Typography variant="subtitle1">Description: {auction?.description}</Typography>
-                    <Typography variant="subtitle1">Auction Date: {auction?.date}</Typography>
                     <Typography variant="subtitle1">Year: {auction?.year}</Typography>
                 </Box>
 

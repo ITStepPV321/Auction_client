@@ -14,6 +14,7 @@ import { IBetHistory } from "../../types/betHistory";
 
 export default function Profile() {
     const [user, setUser] = useState<IUser | null>(null);
+    const [wonBets, setWonBets] = useState<IBetHistory[]>([]);
     const [auctions, setAuctions] = useState<IAuction[]>([]);
     const [invoices, setInvoices] = useState<IInvoice[]>([]);
     const [loading, setLoading] = useState(true);
@@ -28,14 +29,15 @@ export default function Profile() {
 
                 if (fetchedUser) {
                     // Fetch user's won bets
-                    const wonBets: IBetHistory[] = await BetHistoryService.getUserWonBets();
+                    const fetchedWonBets = await BetHistoryService.getUserWonBets();
+                    setWonBets(fetchedWonBets);
                     // Fetch user's won auctions
-                    const auctionArr = await AuctionService.getUserWonAuctions(wonBets);
-                    setAuctions(auctionArr);
+                    const fetchedAuction = await AuctionService.getUserWonAuctions(fetchedWonBets);
+                    setAuctions(fetchedAuction);
 
                     // Fetch user's invoices
-                    const invoiceArr = await InvoiceService.getUserInvoices(wonBets);
-                    setInvoices(invoiceArr);
+                    const fetchedInvoices = await InvoiceService.getUserInvoices(fetchedWonBets);
+                    setInvoices(fetchedInvoices);
                 }
             } catch (err) {
                 setError("Failed to fetch data.");
@@ -68,7 +70,7 @@ export default function Profile() {
 
             {/* User Information */}
             {user && (
-                <Box>
+                <Box className="profile-container">
                     <Typography variant="subtitle1" sx={{ marginBottom: 3, textAlign: "center" }}>
                         Username: {user.userName}
                     </Typography>
@@ -83,10 +85,18 @@ export default function Profile() {
                 Auctions won:
             </Typography>
             {auctions.length > 0 ? (
-                <Grid container spacing={4}>
+                <Grid className="grid" container spacing={22}>
                     {auctions.map((auction) => (
                         <Grid item xs={12} sm={6} md={4} key={auction.id}>
-                            <AuctionUserCard {...auction} />
+                            {invoices.find(
+                                (invoice) =>
+                                    invoice.betHistoryId ==
+                                    wonBets.find((betHistory) => betHistory.auctionId == auction.id)?.id
+                            ) != null ? (
+                                <AuctionUserCard {...auction} canBuy={false} />
+                            ) : (
+                                <AuctionUserCard {...auction} canBuy={true} />
+                            )}
                         </Grid>
                     ))}
                 </Grid>
@@ -101,7 +111,7 @@ export default function Profile() {
                 Invoices:
             </Typography>
             {invoices.length > 0 ? (
-                <Grid container spacing={4}>
+                <Grid className="grid" container spacing={22}>
                     {invoices.map((invoice) => (
                         <Grid item xs={12} sm={6} md={4} key={invoice.id}>
                             <InvoiceUserCard id={invoice.id} date={invoice.date} betHistoryId={invoice.betHistoryId} />

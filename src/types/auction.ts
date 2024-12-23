@@ -10,12 +10,19 @@ export interface IAuction {
 }
 
 export interface IAuctionUserCardProps {
-    auctionId: number;
+    id: number;
+    date: string;
+    name: string;
+    description: string;
+    year: number;
+    price: number;
+    canBuy: boolean;
 }
 export interface ICreateAuction {
     date: string;
     name: string;
     description: string;
+    year: number;
     price: number;
 }
 export interface IUpdateAuction {

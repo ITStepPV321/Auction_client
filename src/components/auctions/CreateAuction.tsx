@@ -34,34 +34,11 @@ export default function CreateAuction() {
     };
 
     return (
-        <Box
-            sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                marginTop: 4,
-                padding: 2,
-            }}
-        >
+        <Box className="form">
             <Typography variant="h4" sx={{ marginBottom: 2, textAlign: "center" }}>
                 Create New Auction
             </Typography>
             <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%", maxWidth: "400px" }}>
-                {/* Date Field */}
-                <TextField
-                    {...register("date", { required: "Date is required" })}
-                    error={!!errors.date}
-                    helperText={errors.date?.message}
-                    id="date"
-                    label="Date"
-                    type="datetime-local"
-                    variant="outlined"
-                    fullWidth
-                    sx={{ marginBottom: 2 }}
-                    InputLabelProps={{ shrink: true }}
-                />
-
                 {/* Name Field */}
                 <TextField
                     {...register("name", { required: "Name is required" })}
@@ -86,6 +63,34 @@ export default function CreateAuction() {
                     rows={3}
                     fullWidth
                     sx={{ marginBottom: 2 }}
+                />
+
+                {/* Date Field */}
+                <TextField
+                    {...register("date", { required: "Date is required" })}
+                    error={!!errors.date}
+                    helperText={errors.date?.message}
+                    id="date"
+                    label="Date"
+                    type="datetime-local"
+                    variant="outlined"
+                    fullWidth
+                    sx={{ marginBottom: 2 }}
+                    InputLabelProps={{ shrink: true }}
+                />
+
+                {/* Year Field */}
+                <TextField
+                    {...register("year", { required: "Year is required" })}
+                    error={!!errors.year}
+                    helperText={errors.year?.message}
+                    id="year"
+                    label="Year"
+                    type="number"
+                    variant="outlined"
+                    fullWidth
+                    sx={{ marginBottom: 2 }}
+                    InputLabelProps={{ shrink: true }}
                 />
 
                 {/* Price Field */}

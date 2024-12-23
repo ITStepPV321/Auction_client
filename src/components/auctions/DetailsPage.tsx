@@ -113,7 +113,7 @@ export default function DetailsPage() {
 
     return (
         <Box className="auction-container">
-            <Box>
+            <Box className="auction-desc-cont">
                 <p className="auction-desc">{auction?.description}</p>
             </Box>
 

@@ -90,11 +90,11 @@ export default function CreateInvoiceCard() {
             </Box>
 
             <Box className="invoice-product-buy-cont">
+                <p className="invoice-product-price lbl">${betHistory?.bet}</p>
+
                 <Button onClick={buyProduct} variant="contained" color="primary">
                     Buy
                 </Button>
-
-                <p className="invoice-product-price lbl">${betHistory?.bet}</p>
             </Box>
         </Box>
     );

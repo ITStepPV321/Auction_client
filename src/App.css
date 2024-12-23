@@ -98,12 +98,34 @@ main {
     margin-top: 40px;
 }
 
+.grid {
+    margin-bottom: 40px;
+}
+
+.profile-container {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    padding: 10px;
+    padding-top: 25px;
+    background-color: white;
+    box-shadow: 10px 10px 20px lightgray;
+}
+
 .danger-zone {
     margin: 20px;
-    border: 2px solid #ba000d;
-    border-radius: 10px;
+    padding: 10px;
     min-width: 600px;
-    background-color: #ba000c10;
+    background-color: #c4676e7a;
+    box-shadow: 10px 10px 20px lightgray;
+}
+
+.danger-zone-ttl {
+    text-transform: uppercase;
+    color: #ba000d;
+}
+
+.danger-zone-lbl {
+    color: white;
 }
 
 .timer {
@@ -164,6 +186,19 @@ main {
 .button-img {
     width: 32px;
     margin-right: 10px;
+}
+
+.auction-user-cont {
+    width: 350px;
+    background-color: white;
+    box-shadow: 15px 15px 30px gray;
+}
+
+.invoice-user-card,
+.auction-user-card {
+    margin-bottom: 25px;
+    height: 270px;
+    padding-top: 20px;
 }
 
 .invoice-container {
@@ -346,6 +381,14 @@ main {
 
 .invoice-product-buy-cont {
     display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invoice-product-actions-cont {
+    display: flex;
+    margin-top: 20px;
     justify-content: space-between;
     align-items: center;
 }
@@ -364,6 +407,10 @@ main {
     justify-self: center;
     justify-content: space-between;
     box-shadow: 10px 10px 20px lightgray;
+}
+
+.auction-desc-cont {
+    width: 60%;
 }
 
 .auction-desc {
@@ -451,4 +498,16 @@ main {
 
 .ttl {
     font-weight: 600;
+}
+
+.form {
+    display: "flex";
+    margin-top: 90px;
+    background-color: white;
+    padding: 30px;
+    flex-direction: "column";
+    align-items: "center";
+    justify-self: center;
+    justify-content: "center";
+    box-shadow: 10px 10px 20px lightgray;
 }
